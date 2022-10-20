@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import DatePicker from 'react-native-date-picker';
 
 import InputField from '../components/InputField';
 
@@ -138,43 +137,8 @@ const RegisterScreen = ({navigation}) => {
           inputType="password"
         />
 
-        <View
-          style={{
-            flexDirection: 'row',
-            borderBottomColor: '#ccc',
-            borderBottomWidth: 1,
-            paddingBottom: 8,
-            marginBottom: 30,
-          }}>
-          <Ionicons
-            name="calendar-outline"
-            size={20}
-            color="#666"
-            style={{marginRight: 5}}
-          />
-          <TouchableOpacity onPress={() => setOpen(true)}>
-            <Text style={{color: '#666', marginLeft: 5, marginTop: 5}}>
-              {dobLabel}
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        <DatePicker
-          modal
-          open={open}
-          date={date}
-          mode={'date'}
-          maximumDate={new Date('2005-01-01')}
-          minimumDate={new Date('1980-01-01')}
-          onConfirm={date => {
-            setOpen(false);
-            setDate(date);
-            setDobLabel(date.toDateString());
-          }}
-          onCancel={() => {
-            setOpen(false);
-          }}
-        />
+      
+        
 
         <CustomButton label={'Register'} onPress={() => {}} />
 
