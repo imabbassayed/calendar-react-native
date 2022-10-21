@@ -20,9 +20,33 @@ import TwitterSVG from '../assets/miscs/twitter.svg';
 import CustomButton from '../components/CustomButton';
 
 const RegisterScreen = ({navigation}) => {
-  const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
-  const [dobLabel, setDobLabel] = useState('Date of Birth');
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [fetching, setFetching] = useState(false)
+  const [error, setError] = useState("")
+  const [isValid, setValid] = useState(true)
+
+  const validateSignUp = () => {
+
+  
+    insertUser(email, password)
+  }
+
+  const insertUser = async (email, password) => {
+    try {
+      let response = await auth().createUserWithEmailAndPassword(
+        email,
+        password
+      )
+      if (response && response.user) {
+        Alert.alert("Success ✅", "Account created successfully")
+        console.log("donneee")
+      }
+    } catch (e) {
+      console.error(e.message)
+    }
+  }
 
   return (
     <SafeAreaView style={{flex: 1, justifyContent: 'center'}}>
@@ -95,10 +119,12 @@ const RegisterScreen = ({navigation}) => {
               style={{marginRight: 5}}
             />
           }
+          
         />
 
         <InputField
           label={'Email ID'}
+          autoCapitalize={false}
           icon={
             <MaterialIcons
               name="alternate-email"
@@ -108,6 +134,7 @@ const RegisterScreen = ({navigation}) => {
             />
           }
           keyboardType="email-address"
+          text={text => setEmail(text)}
         />
 
         <InputField
@@ -121,6 +148,7 @@ const RegisterScreen = ({navigation}) => {
             />
           }
           inputType="password"
+          text={text => setPassword(text)}
         />
 
         <InputField
@@ -139,7 +167,10 @@ const RegisterScreen = ({navigation}) => {
       
         
 
-        <CustomButton label={'Register'} onPress={() => {}} />
+        <CustomButton 
+        label={'Register'}
+        onPress={validateSignUp}  
+        />
 
         <View
           style={{
