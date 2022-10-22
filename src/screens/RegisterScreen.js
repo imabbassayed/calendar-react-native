@@ -5,7 +5,9 @@ import {
   View,
   Text,
   TouchableOpacity,
+  Alert
 } from 'react-native';
+import { validate } from 'validate.js';
 
 
 import InputField from '../components/InputField';
@@ -19,18 +21,76 @@ import TwitterSVG from '../assets/miscs/twitter.svg';
 
 import CustomButton from '../components/CustomButton';
 
+import constraints from '../../constraints';
+
+
 const RegisterScreen = ({navigation}) => {
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [fetching, setFetching] = useState(false)
-  const [error, setError] = useState("")
-  const [isValid, setValid] = useState(true)
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPasword, setConfirmPassword] = useState("");
+
 
   const validateSignUp = () => {
+    const nameInvalid = name.length == 0;
+ 
 
-  
-    insertUser(email, password)
+    if(nameInvalid == true){
+      Alert.alert(
+        "Registration Failed !",
+        "Please enter your full name",
+        [
+          {text: "OK" }
+        ]
+      );
+      return;
+    }
+    
+
+    const emailInvalid = validate({emailAddress:email}, constraints);
+
+    if(emailInvalid){
+        Alert.alert(
+          "Registration Failed !",
+          "Please enter a valid email address",
+          [
+            {text: "OK" }
+          ]
+        );
+        return;
+    }
+
+    const confirmPasswordInvalid = password != confirmPasword;
+
+    if(confirmPasswordInvalid){
+      Alert.alert(
+        "Registration Failed !",
+        "Please enter matching paswwords",
+        [
+          {text: "OK" }
+        ]
+      );
+      return;
+  }
+
+
+    const passwordInvalid  = password.length < 6;
+
+    if(passwordInvalid){
+      Alert.alert(
+        "Registration Failed !",
+        "Please enter password with more than 6 characters",
+        [
+          {text: "OK" }
+        ]
+      );
+      return;
+  }
+
+    
+
+    //insertUser(email, password)
   }
 
   const insertUser = async (email, password) => {
@@ -41,7 +101,6 @@ const RegisterScreen = ({navigation}) => {
       )
       if (response && response.user) {
         Alert.alert("Success ✅", "Account created successfully")
-        console.log("donneee")
       }
     } catch (e) {
       console.error(e.message)
@@ -110,20 +169,21 @@ const RegisterScreen = ({navigation}) => {
         </Text>
 
         <InputField
-          label={'Full Name'}
+          label={'Full Name *'}
           icon={
             <Ionicons
               name="person-outline"
               size={20}
               color="#666"
               style={{marginRight: 5}}
+              
             />
           }
-          
+          text={text => setName(text)}
         />
 
         <InputField
-          label={'Email ID'}
+          label={'Email *'}
           autoCapitalize={false}
           icon={
             <MaterialIcons
@@ -138,7 +198,7 @@ const RegisterScreen = ({navigation}) => {
         />
 
         <InputField
-          label={'Password'}
+          label={'Password *'}
           icon={
             <Ionicons
               name="ios-lock-closed-outline"
@@ -152,7 +212,7 @@ const RegisterScreen = ({navigation}) => {
         />
 
         <InputField
-          label={'Confirm Password'}
+          label={'Confirm Password *'}
           icon={
             <Ionicons
               name="ios-lock-closed-outline"
@@ -161,11 +221,9 @@ const RegisterScreen = ({navigation}) => {
               style={{marginRight: 5}}
             />
           }
+          text={text => setConfirmPassword(text)}
           inputType="password"
         />
-
-      
-        
 
         <CustomButton 
         label={'Register'}
