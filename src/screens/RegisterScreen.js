@@ -23,6 +23,9 @@ import CustomButton from '../components/CustomButton';
 
 import constraints from '../../constraints';
 
+import { app } from '../../firebaseConfig';
+import {  getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 
 const RegisterScreen = ({navigation}) => {
 
@@ -53,10 +56,7 @@ const RegisterScreen = ({navigation}) => {
     if(emailInvalid){
         Alert.alert(
           "Registration Failed !",
-          "Please enter a valid email address",
-          [
-            {text: "OK" }
-          ]
+          "Please enter a valid email address",   
         );
         return;
     }
@@ -66,10 +66,7 @@ const RegisterScreen = ({navigation}) => {
     if(confirmPasswordInvalid){
       Alert.alert(
         "Registration Failed !",
-        "Please enter matching paswwords",
-        [
-          {text: "OK" }
-        ]
+        "Please enter matching paswwords",   
       );
       return;
   }
@@ -81,30 +78,27 @@ const RegisterScreen = ({navigation}) => {
       Alert.alert(
         "Registration Failed !",
         "Please enter password with more than 6 characters",
-        [
-          {text: "OK" }
-        ]
       );
       return;
   }
 
-    
-
-    //insertUser(email, password)
+    insertUser(email, password)
   }
 
   const insertUser = async (email, password) => {
-    try {
-      let response = await auth().createUserWithEmailAndPassword(
-        email,
-        password
-      )
-      if (response && response.user) {
-        Alert.alert("Success ✅", "Account created successfully")
-      }
-    } catch (e) {
-      console.error(e.message)
-    }
+
+    const auth = getAuth(app);
+
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+    });
+
   }
 
   return (
