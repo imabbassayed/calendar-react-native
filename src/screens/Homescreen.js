@@ -9,8 +9,6 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import GoogleSVG from '../assets/miscs/google.svg';
-
 
 import CustomButton from '../components/CustomButton';
 import InputField from '../components/InputField';

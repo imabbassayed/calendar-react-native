@@ -9,13 +9,11 @@ import {
 } from 'react-native';
 import { validate } from 'validate.js';
 
-
 import InputField from '../components/InputField';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import GoogleSVG from '../assets/miscs/google.svg';
 
 import CustomButton from '../components/CustomButton';
 
