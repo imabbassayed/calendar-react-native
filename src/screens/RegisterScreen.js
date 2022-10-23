@@ -92,6 +92,7 @@ const RegisterScreen = ({navigation}) => {
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
+      
     })
     .catch((error) => {
       const errorCode = error.code;

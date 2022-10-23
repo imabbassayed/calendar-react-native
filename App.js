@@ -7,6 +7,7 @@ function App(){
   return (
     <NavigationContainer>
       <AuthStack/>
+      <AppStack/>
     </NavigationContainer>
   );
 }
