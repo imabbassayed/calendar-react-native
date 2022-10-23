@@ -9,7 +9,6 @@ export default function InputField({
   fieldButtonLabel,
   fieldButtonFunction,
   text,
-  error,
   autoCapitalize
 }) {
   return (

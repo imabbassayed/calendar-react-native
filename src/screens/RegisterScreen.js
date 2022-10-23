@@ -117,53 +117,13 @@ const RegisterScreen = ({navigation}) => {
             fontSize: 28,
             fontWeight: '500',
             color: '#333',
-            marginBottom: 30,
+            marginBottom: 20,
+            marginTop: 10
           }}>
           Register
         </Text>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginBottom: 30,
-          }}>
-          <TouchableOpacity
-            onPress={() => {}}
-            style={{
-              borderColor: '#ddd',
-              borderWidth: 2,
-              borderRadius: 10,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-            }}>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {}}
-            style={{
-              borderColor: '#ddd',
-              borderWidth: 2,
-              borderRadius: 10,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-            }}>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {}}
-            style={{
-              borderColor: '#ddd',
-              borderWidth: 2,
-              borderRadius: 10,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-            }}>
-          </TouchableOpacity>
-        </View>
-
-        <Text style={{textAlign: 'center', color: '#666', marginBottom: 30}}>
-          Or, register with email ...
-        </Text>
-
+  
         <InputField
           label={'Full Name *'}
           icon={
@@ -233,7 +193,7 @@ const RegisterScreen = ({navigation}) => {
             marginBottom: 30,
           }}>
           <Text>Already registered?</Text>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
             <Text style={{color: '#AD40AF', fontWeight: '700'}}> Login</Text>
           </TouchableOpacity>
         </View>
