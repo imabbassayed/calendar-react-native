@@ -16,15 +16,13 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import GoogleSVG from '../assets/miscs/google.svg';
-import FacebookSVG from '../assets/miscs/facebook.svg';
-import TwitterSVG from '../assets/miscs/twitter.svg';
 
 import CustomButton from '../components/CustomButton';
 
 import constraints from '../../constraints';
 
 import { app } from '../../firebaseConfig';
-import {  getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {  getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 
 const RegisterScreen = ({navigation}) => {
@@ -91,13 +89,18 @@ const RegisterScreen = ({navigation}) => {
 
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user = userCredential.user;
-      
+        const user = userCredential.user;
+        updateProfile(user,{
+          displayName: name,
+        }).then(function() {
+          var displayName = user.displayName;
+          navigation.navigate("Appstack",{screen:"Dashboard"});
+        }, function(error) {
+          console.log(error)
+        });
     })
     .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
+      console.log(error);
     });
 
   }

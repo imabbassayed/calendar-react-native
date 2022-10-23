@@ -2,17 +2,15 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import HomeScreen from "../screens/homeScreen";
+import HomeScreen from "../screens/HomeScreen";
 
 
 const stack = createNativeStackNavigator();
 
 const AppStack = () => {
-    return (
-        <stack.Navigator screenOptions={{headershown: false}}>
-            <stack.Screen name="Home" component={HomeScreen} />
-        </stack.Navigator>
-    )
+<stack.Navigator screenOptions={{headershown: false}}>
+    <stack.Screen name="Dashboard" component={HomeScreen} />
+</stack.Navigator>
 }
 
 export default AppStack;

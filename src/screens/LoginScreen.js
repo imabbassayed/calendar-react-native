@@ -10,8 +10,6 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import GoogleSVG from '../assets/miscs/google.svg';
-import FacebookSVG from '../assets/miscs/facebook.svg';
-import TwitterSVG from '../assets/miscs/twitter.svg';
 
 import CustomButton from '../components/CustomButton';
 import InputField from '../components/InputField';
@@ -82,28 +80,13 @@ const LoginScreen = ({navigation}) => {
               borderRadius: 10,
               paddingHorizontal: 30,
               paddingVertical: 10,
+              width:380,
             }}>
+            
+
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {}}
-            style={{
-              borderColor: '#ddd',
-              borderWidth: 2,
-              borderRadius: 10,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-            }}>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {}}
-            style={{
-              borderColor: '#ddd',
-              borderWidth: 2,
-              borderRadius: 10,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-            }}>          
-            </TouchableOpacity>
+        
+         
         </View>
 
         <View
