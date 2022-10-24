@@ -4,7 +4,7 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Alert
+  Alert,
 } from 'react-native';
 import { validate } from 'validate.js';
 
