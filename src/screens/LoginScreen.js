@@ -17,8 +17,8 @@ import InputField from '../components/InputField';
 
 import constraints from '../../constraints';
 
-import { app } from '../../firebaseConfig';
-import {  getAuth, signInWithEmailAndPassword, GoogleAuthProvider } from "firebase/auth";
+import { auth } from '../../firebaseConfig';
+import { signInWithEmailAndPassword, GoogleAuthProvider } from "firebase/auth";
 
 
 const LoginScreen = ({navigation}) => {
@@ -56,11 +56,9 @@ const LoginScreen = ({navigation}) => {
 
   const logInUser = async (email, password) => {
 
-      const auth = getAuth(app);
       signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        
+        navigation.navigate("Home")
       })
       .catch((error) => {
           Alert.alert(

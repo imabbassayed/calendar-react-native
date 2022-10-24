@@ -14,6 +14,7 @@ import CustomButton from '../components/CustomButton';
 import InputField from '../components/InputField';
 
 const HomeScreen = ({navigation}) => {
+  return(<Text>Hello World</Text>)
 }
 
 export default HomeScreen;

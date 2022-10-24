@@ -19,8 +19,8 @@ import CustomButton from '../components/CustomButton';
 
 import constraints from '../../constraints';
 
-import { app } from '../../firebaseConfig';
-import {  getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from '../../firebaseConfig';
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 
 const RegisterScreen = ({navigation}) => {
@@ -34,7 +34,6 @@ const RegisterScreen = ({navigation}) => {
   const validateSignUp = () => {
     const nameInvalid = name.length == 0;
  
-
     if(nameInvalid == true){
       Alert.alert(
         "Registration Failed !",
@@ -82,33 +81,40 @@ const RegisterScreen = ({navigation}) => {
   }
 
   const insertUser = async (email, password) => {
-
-    const auth = getAuth(app);
-
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         const user = userCredential.user;
         updateProfile(user,{
           displayName: name,
         }).then(function() {
-          var displayName = user.displayName;
-          navigation.navigate("Appstack",{screen:"Dashboard"});
+          navigation.navigate("Home");
         }, function(error) {
-          console.log(error)
+          Alert.alert(
+            "Registration Failed !",
+            "Please try agian",
+            [
+              {text: "OK" }
+            ]
+          );
         });
     })
     .catch((error) => {
-      console.log(error);
+      Alert.alert(
+        "Registration Failed !",
+        "Please try agian",
+        [
+          {text: "OK" }
+        ]
+      );
     });
 
   }
 
   return (
     <SafeAreaView style={{flex: 1, justifyContent: 'center'}}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{paddingHorizontal: 25}}>
-        <View style={{alignItems: 'center'}}>
+        <View style={{paddingHorizontal: 25}}>
+
+         <View style={{alignItems: 'center'}}>
          
         </View>
 
@@ -117,12 +123,11 @@ const RegisterScreen = ({navigation}) => {
             fontSize: 28,
             fontWeight: '500',
             color: '#333',
-            marginBottom: 20,
-            marginTop: 10
+            marginBottom: 30,
           }}>
+            
           Register
-        </Text>
-
+          </Text>
   
         <InputField
           label={'Full Name *'}
@@ -197,7 +202,7 @@ const RegisterScreen = ({navigation}) => {
             <Text style={{color: '#AD40AF', fontWeight: '700'}}> Login</Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
