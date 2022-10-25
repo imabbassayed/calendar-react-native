@@ -12,9 +12,16 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import CustomButton from '../components/CustomButton';
 import InputField from '../components/InputField';
+import { auth } from '../../firebaseConfig';
+
+import GoogleSVG from '../assets/svgs/GoogleSVG';
 
 const HomeScreen = ({navigation}) => {
-  return(<Text>Hello World</Text>)
+  console.log(auth.currentUser)
+  return(<SafeAreaView>
+    <GoogleSVG/>
+  </SafeAreaView>  
+  )
 }
 
 export default HomeScreen;

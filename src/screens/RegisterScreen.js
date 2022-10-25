@@ -10,6 +10,7 @@ import {
 import { validate } from 'validate.js';
 
 import InputField from '../components/InputField';
+import GoogleSVG from '../assets/svgs/GoogleSVG';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -128,6 +129,49 @@ const RegisterScreen = ({navigation}) => {
             
           Register
           </Text>
+
+          <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginBottom: 30,
+          }}>
+         <TouchableOpacity
+            onPress={() => {logInUserWithGoogle}}
+            style={{
+              borderColor: '#ddd',
+              borderWidth: 2,
+              borderRadius: 10,
+              paddingHorizontal: 30,
+              paddingVertical: 10,
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'center',
+
+              
+            }}>
+            <Text 
+            style={{fontWeight: '800',
+                    textAlign: 'center', 
+                    paddingRight: 10,
+                    paddingTop: 2
+             }}>
+             Register with Google   
+      
+             </Text>
+             <GoogleSVG/>
+
+
+          </TouchableOpacity>
+        
+         
+        </View>
+
+
+          <Text style={{textAlign: 'center', color: '#666', marginBottom: 30}}>
+          Or
+          </Text>
+
   
         <InputField
           label={'Full Name *'}

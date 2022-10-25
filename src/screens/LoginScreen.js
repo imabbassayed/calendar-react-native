@@ -11,6 +11,7 @@ import { validate } from 'validate.js';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import GoogleSVG from '../assets/svgs/GoogleSVG';
 
 import CustomButton from '../components/CustomButton';
 import InputField from '../components/InputField';
@@ -77,23 +78,8 @@ const LoginScreen = ({navigation}) => {
     }
     
     const logInUserWithGoogle = () => {
-
-      const auth = getAuth(app);
-      getRedirectResult(auth)
-        .then((result) => { 
-         // The signed-in user info.
-          const user = result.user;
-        }).catch((error) => {
-        
-        });
-        
+      
     }
-
-       
-
-   
-
-    
 
   return (
     <SafeAreaView style={{flex: 1, justifyContent: 'center'}}>
@@ -165,14 +151,23 @@ const LoginScreen = ({navigation}) => {
               borderRadius: 10,
               paddingHorizontal: 30,
               paddingVertical: 10,
-              width:380,
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'center',
+
               
             }}>
             <Text 
             style={{fontWeight: '800',
                     textAlign: 'center', 
+                    paddingRight: 10,
+                    paddingTop: 2
              }}>
-             Log in with Google</Text>
+             Log in with Google   
+      
+             </Text>
+             <GoogleSVG/>
+
 
           </TouchableOpacity>
         
