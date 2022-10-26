@@ -81,7 +81,7 @@ const RegisterScreen = ({navigation}) => {
     insertUser(email, password)
   }
 
-  const insertUser = async (email, password) => {
+const insertUser = async (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         const user = userCredential.user;
