@@ -8,6 +8,8 @@ import HomeScreen from "./src/screens/HomeScreen";
 import LoginScreen from "./src/screens/LoginScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
 
+import TabNavigator from "./src/navigation/TabNavigator";
+
 const stack = createNativeStackNavigator();
 const tab = createBottomTabNavigator();
 
