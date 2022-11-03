@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -28,20 +29,35 @@ function App(){
         </stack.Group>  
 
         <stack.Group>
+            
             <stack.Screen 
             name="Home" 
             component={HomeScreen}
             options={{
               headerBackVisible : false,
-              headerTitle : "",
+              headerTitle : "Calendar",
               headerRight : () => (
+              <View style={{flexDirection:"row"}}>  
+                
                 <IconButton
                   onPress={() => alert('This is a button!')}
-                  icon = {<Ionicons name="add" size={24} color="black" />}
+                  icon = {<Ionicons name="search" size={30} color="blue" />}
+                  title = ""
+                  style={{marginRight: 10}}
                 />
+
+                <IconButton
+                  onPress={() => alert('This is a button!')}
+                  icon = {<Ionicons name="add" size={35} color="blue" />}
+                  title = ""
+                />
+
+              </View>  
+
               ),
 
-            }} />            
+            }} />        
+
         </stack.Group>
       </stack.Navigator>
     
