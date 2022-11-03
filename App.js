@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Button,
-} from 'react-native';
+
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -12,6 +10,9 @@ import LoginScreen from "./src/screens/LoginScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
 
 import TabNavigator from "./src/navigation/TabNavigator";
+
+import { Ionicons } from '@expo/vector-icons';
+import { IconButton } from './src/components/IconButton';
 
 const stack = createNativeStackNavigator();
 const tab = createBottomTabNavigator();
@@ -34,9 +35,9 @@ function App(){
               headerBackVisible : false,
               headerTitle : "",
               headerRight : () => (
-                <Button
+                <IconButton
                   onPress={() => alert('This is a button!')}
-                  title="Info"
+                  icon = {<Ionicons name="add" size={24} color="black" />}
                 />
               ),
 
