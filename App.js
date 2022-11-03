@@ -37,7 +37,6 @@ function App(){
                 <Button
                   onPress={() => alert('This is a button!')}
                   title="Info"
-
                 />
               ),
 
