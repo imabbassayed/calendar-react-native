@@ -24,11 +24,12 @@ function App(){
     <NavigationContainer>
 
       <stack.Navigator>
+      
         <stack.Group screenOptions={{headerShown: false}} >
               <stack.Screen name="Login" component={LoginScreen} />
               <stack.Screen name="Register" component={RegisterScreen} />
         </stack.Group>  
-
+        
         <stack.Group screenOptions={{headerShown: false}} >
             
             <stack.Screen 
