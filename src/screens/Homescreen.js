@@ -26,7 +26,22 @@ const HomeScreen = ({navigation}) => {
   <SafeAreaView style={{flex: 1}}>
     
     
-    
+    <Agenda
+
+        items={{
+          '2012-05-22': [{name: 'item 1 - any js object'}],
+          '2022-08-21': [{name: 'item 2 - any js object', height: 1500}],
+          '2022-08-22': [],
+        }}
+
+        theme={{
+          selectedDayBackgroundColor: '#AD40AF',
+          agendaKnobColor: '#AD40AF'
+        }}
+        selected={new Date()}
+    >
+
+    </Agenda>
 
 
     <TouchableOpacity
