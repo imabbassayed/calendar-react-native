@@ -26,7 +26,7 @@ const HomeScreen = ({navigation}) => {
   <SafeAreaView style={{flex: 1}}>
     
     
-  
+    
 
 
     <TouchableOpacity
@@ -50,7 +50,25 @@ const HomeScreen = ({navigation}) => {
     </TouchableOpacity>
 
 
- 
+    <TouchableOpacity
+                  onPress={() => alert('This is a button!')}
+                  style={{
+                    position: 'absolute',
+                    width: 55,
+                    height: 55,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    left: 30,
+                    bottom: 100,
+                    borderRadius : 50,
+                    backgroundColor: '#AD40AF',
+                  }}             
+    > 
+        <View>
+          <Ionicons name="search" size="35" color="white" />          
+        </View>
+    
+    </TouchableOpacity>
 
 
 
