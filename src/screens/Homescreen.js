@@ -19,7 +19,7 @@ import InputField from '../components/InputField';
 
 const HomeScreen = ({navigation}) => {
   return(<SafeAreaView>
-       <CalendarList />
+      
   </SafeAreaView>  
   )
 }

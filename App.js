@@ -6,9 +6,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 
-import HomeScreen from "./src/screens/HomeScreen";
-import LoginScreen from "./src/screens/LoginScreen";
-import RegisterScreen from "./src/screens/RegisterScreen";
+
+import HomeScreen from './src/screens/HomeScreen';
+import LoginScreen from './src/screens/LoginScreen';
+import RegisterScreen from './src/screens/RegisterScreen';
 
 import TabNavigator from "./src/navigation/TabNavigator";
 
@@ -28,7 +29,7 @@ function App(){
               <stack.Screen name="Register" component={RegisterScreen} />
         </stack.Group>  
 
-        <stack.Group>
+        <stack.Group screenOptions={{headerShown: false}} >
             
             <stack.Screen 
             name="Home" 
