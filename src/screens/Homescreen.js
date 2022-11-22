@@ -1,31 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   View,
   Text,
   TouchableOpacity,
-  Arrow,
-  StyleSheet,
-  Animated
+  Button
 } from 'react-native';
 
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
+import {Agenda} from 'react-native-calendars';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { IconButton } from '../components/IconButton';
 
-import CustomButton from '../components/CustomButton';
-import InputField from '../components/InputField';
+
+import Modal from "react-native-modal";
+
 
 
 
 const HomeScreen = ({navigation}) => {
 
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
 
   return(
   <SafeAreaView style={{flex: 1}}>
-    
-    
+
+      
     <Agenda
 
         items={{
@@ -42,7 +45,6 @@ const HomeScreen = ({navigation}) => {
     >
 
     </Agenda>
-
 
     <TouchableOpacity
                   onPress={() => alert('This is a button!')}
@@ -63,7 +65,6 @@ const HomeScreen = ({navigation}) => {
         </View>
     
     </TouchableOpacity>
-
 
     <TouchableOpacity
                   onPress={() => alert('This is a button!')}
