@@ -1,16 +1,20 @@
 import React, {useState} from 'react';
 import { View, Text, Switch } from 'react-native';
+import {Picker} from 'react-native-picker';
 
 import  Modal  from 'react-native-modal';
 import InputField from '../components/InputField';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const AddEventModal = ({navigation}) => {
 
 const [isAllDayEnabled, setIsAllDayEnabled] = useState(false);
-const toggleSwitch = () => setIsAllDayEnabled(previousState => !previousState);
+const toggleAllDaySwitch = () => setIsAllDayEnabled(previousState => !previousState);
+const [selectedRepeatValue, setSelectedRepeatValue] = useState(0);
+
 
   return(
     <View>
@@ -72,10 +76,42 @@ const toggleSwitch = () => setIsAllDayEnabled(previousState => !previousState);
                     right: 50
                 }}>All Day</Text>
                 <Switch  
-                onChange={toggleSwitch}
+                onChange={toggleAllDaySwitch}
                 value={isAllDayEnabled}
-                trackColor={{true: '#AD40AF'}}/>
+                trackColor={{true: '#AD40AF'}}
+                />
             </View>
+
+            <DateTimePicker
+            mode='datetime'
+            value={new Date()}
+            style={{
+                marginTop: 30,
+                marginBottom: 50,
+            }} 
+            />
+
+            <DateTimePicker
+            mode='datetime'
+            value={new Date()}
+            style={{
+                marginTop: 30,
+                marginBottom: 50,
+            }} 
+            />
+
+            <Picker
+            selectedValue={selectedRepeatValue}
+            style={{ height: 50, width: 150 }}
+            onValueChange={(itemValue) => setSelectedRepeatValue(itemValue)}
+            >
+                <Picker.Item label="Never" value="0" />
+                <Picker.Item label="Every Day" value="1" />
+                <Picker.Item label="Every Week" value="2" />
+                <Picker.Item label="Every Month" value="3" />
+                <Picker.Item label="Every Year" value="4" />
+            </Picker>
+
 
             
 
