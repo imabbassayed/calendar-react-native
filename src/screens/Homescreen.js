@@ -1,34 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   SafeAreaView,
   View,
-  Text,
   TouchableOpacity,
-  Button
 } from 'react-native';
 
 import {Agenda} from 'react-native-calendars';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-
-import Modal from "react-native-modal";
-
-
-
+import AddEventModal from '../modals/AddEventModal';
 
 const HomeScreen = ({navigation}) => {
-
-  const [isModalVisible, setModalVisible] = useState(false);
-
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
 
   return(
   <SafeAreaView style={{flex: 1}}>
 
-      
+    <AddEventModal />
+
     <Agenda
 
         items={{
