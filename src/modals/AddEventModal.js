@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import { View, Text, Switch } from 'react-native';
-import {Picker} from 'react-native-picker';
 
 import  Modal  from 'react-native-modal';
 import InputField from '../components/InputField';
@@ -8,6 +7,9 @@ import InputField from '../components/InputField';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
+
+import {Picker} from '@react-native-picker/picker';
+
 
 const AddEventModal = ({navigation}) => {
 
@@ -70,7 +72,7 @@ const [selectedRepeatValue, setSelectedRepeatValue] = useState(0);
             />
             <View style={{flexDirection:'row'}}>
                 <Text style={{
-                    fontSize: 15,
+                    fontSize: 20,
                     fontWeight: '500',
                     color: '#AD40AF',
                     right: 50
@@ -82,6 +84,7 @@ const [selectedRepeatValue, setSelectedRepeatValue] = useState(0);
                 />
             </View>
 
+           
             <DateTimePicker
             mode='datetime'
             value={new Date()}
@@ -96,22 +99,30 @@ const [selectedRepeatValue, setSelectedRepeatValue] = useState(0);
             value={new Date()}
             style={{
                 marginTop: 30,
-                marginBottom: 50,
+                marginBottom: 10,
             }} 
             />
 
-            <Picker
-            selectedValue={selectedRepeatValue}
-            style={{ height: 50, width: 150 }}
-            onValueChange={(itemValue) => setSelectedRepeatValue(itemValue)}
-            >
-                <Picker.Item label="Never" value="0" />
-                <Picker.Item label="Every Day" value="1" />
-                <Picker.Item label="Every Week" value="2" />
-                <Picker.Item label="Every Month" value="3" />
-                <Picker.Item label="Every Year" value="4" />
-            </Picker>
+            <Text style={{
+                    fontSize: 20,
+                    fontWeight: '500',
+                    color: '#AD40AF',
+                    marginTop: 20,
+                    
+                }}>Repeat</Text>
+                <Picker
+                selectedValue={selectedRepeatValue}
+                style={{ height: 200, width: 400, marginTop : -75}}
+                onValueChange={(itemValue) => setSelectedRepeatValue(itemValue)}
+                >
+                    <Picker.Item label="Never" value="0" />
+                    <Picker.Item label="Every Day" value="1" />
+                    <Picker.Item label="Every Week" value="2" />
+                    <Picker.Item label="Every Month" value="3" />
+                    <Picker.Item label="Every Year" value="4" />
+                </Picker>
 
+          
 
             
 
