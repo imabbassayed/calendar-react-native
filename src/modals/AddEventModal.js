@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, Text, Switch } from 'react-native';
+import { View, Text, Switch, TouchableOpacity } from 'react-native';
 
 import  Modal  from 'react-native-modal';
 import InputField from '../components/InputField';
@@ -11,7 +11,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {Picker} from '@react-native-picker/picker';
 
 
-const AddEventModal = ({navigation}) => {
+const AddEventModal = (props) => {
 
 const [isAllDayEnabled, setIsAllDayEnabled] = useState(false);
 const toggleAllDaySwitch = () => setIsAllDayEnabled(previousState => !previousState);
@@ -22,7 +22,7 @@ const [selectedRepeatValue, setSelectedRepeatValue] = useState(0);
     <View>
         <Modal
         testID={'modal'}
-        isVisible = {true}
+        isVisible = {props.isVisible}
         style={{
             justifyContent: 'flex-end',
             margin: 0,
@@ -122,13 +122,52 @@ const [selectedRepeatValue, setSelectedRepeatValue] = useState(0);
                     <Picker.Item label="Every Year" value="4" />
                 </Picker>
 
-          
+                <View style={{flexDirection:'row'}}>
+                <TouchableOpacity
+                onPress={props.close}
+                style={{
+                    width: 75,
+                    height: 75,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius : 50,
+                    backgroundColor: '#666',
+                    right: 115
+                    
+                    
+                  }}             
+                > 
+                <View>
+                <Ionicons name="close" size="67" color="white" />          
+                </View>
+    
+                </TouchableOpacity>
 
-            
+                <TouchableOpacity
+                style={{
+                    width: 75,
+                    height: 75,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius : 50,
+                    backgroundColor: '#AD40AF',
+                    left: 115
+                }}             
+                > 
+                    <View>
+                    <Ionicons name="checkmark-done-outline" size="55" color="white" />          
+                    </View>
+                
+                </TouchableOpacity>
+                </View>
+                
 
-         
         </View>
+
+        
+
     </Modal>
+
 
     </View>
     

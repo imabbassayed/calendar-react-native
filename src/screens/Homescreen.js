@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -13,10 +13,12 @@ import AddEventModal from '../modals/AddEventModal';
 
 const HomeScreen = ({navigation}) => {
 
+  const [showAddEventModal, setShowAddEventModal] = useState(false);
+
   return(
   <SafeAreaView style={{flex: 1}}>
 
-    <AddEventModal />
+    <AddEventModal isVisible={showAddEventModal} close={() => setShowAddEventModal(false)} />
 
     <Agenda
 
@@ -36,7 +38,7 @@ const HomeScreen = ({navigation}) => {
     </Agenda>
 
     <TouchableOpacity
-                  onPress={() => alert('This is a button!')}
+                  onPress={() => setShowAddEventModal(true) }
                   style={{
                     position: 'absolute',
                     width: 55,
