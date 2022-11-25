@@ -30,27 +30,20 @@ function App(){
               <stack.Screen name="Register" component={RegisterScreen} />
         </stack.Group>  
         
-        <stack.Group screenOptions={{headerShown: false}} >
+        <stack.Group >
             
             <stack.Screen 
             name="Home" 
             component={HomeScreen}
             options={{
               headerBackVisible : false,
-              headerTitle : "Calendar",
+              headerTitle : "",
               headerRight : () => (
-              <View style={{flexDirection:"row"}}>  
+              <View >  
                 
                 <IconButton
                   onPress={() => alert('This is a button!')}
-                  icon = {<Ionicons name="search" size={30} color="blue" />}
-                  title = ""
-                  style={{marginRight: 10}}
-                />
-
-                <IconButton
-                  onPress={() => alert('This is a button!')}
-                  icon = {<Ionicons name="add" size={35} color="blue" />}
+                  icon = {<Ionicons name="settings-outline" size={35} color="blue" />}
                   title = ""
                 />
 
