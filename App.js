@@ -13,8 +13,7 @@ import RegisterScreen from './src/screens/RegisterScreen';
 
 import TabNavigator from "./src/navigation/TabNavigator";
 
-import { Ionicons } from '@expo/vector-icons';
-import { IconButton } from './src/components/IconButton';
+
 
 const stack = createNativeStackNavigator();
 const tab = createBottomTabNavigator();

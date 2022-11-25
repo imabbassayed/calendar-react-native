@@ -7,6 +7,7 @@ import {
 
 import {Agenda} from 'react-native-calendars';
 
+import { IconButton } from '../components/IconButton';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import AddEventModal from '../modals/AddEventModal';
@@ -14,11 +15,37 @@ import AddEventModal from '../modals/AddEventModal';
 const HomeScreen = ({navigation}) => {
 
   const [showAddEventModal, setShowAddEventModal] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(true);
 
   return(
-  <SafeAreaView style={{flex: 1}}>
+  <SafeAreaView style={{
+    flex: 1,
+    backgroundColor: '#FFF'}}>
 
     <AddEventModal isVisible={showAddEventModal} close={() => setShowAddEventModal(false)} />
+
+
+    <View style={{
+      flexDirection: 'row',
+      borderBottomWidth: 0.5,
+      borderColor: '#AD40AF'}}>  
+                
+                <IconButton
+                  onPress={() => alert('This is a button!')}
+                  icon = {<Ionicons name="menu-outline" size={35} color="#AD40AF" />}
+                  title = ""
+                  style={{left:10}}
+                />
+
+                <IconButton
+                  onPress={() => alert('This is a button!')}
+                  icon = {<Ionicons name="settings-outline" size={35} color="#AD40AF" />}
+                  title = ""
+                  style={{left:330}}
+
+                />
+
+    </View>  
 
     <Agenda
 
