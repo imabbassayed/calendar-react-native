@@ -30,27 +30,13 @@ function App(){
               <stack.Screen name="Register" component={RegisterScreen} />
         </stack.Group>  
         
-        <stack.Group >
+        <stack.Group  screenOptions={{headerShown:false}}>
             
-            <stack.Screen 
+            <stack.Screen
             name="Home" 
             component={HomeScreen}
             options={{
               headerBackVisible : false,
-              headerTitle : "",
-              headerRight : () => (
-              <View >  
-                
-                <IconButton
-                  onPress={() => alert('This is a button!')}
-                  icon = {<Ionicons name="settings-outline" size={35} color="blue" />}
-                  title = ""
-                />
-
-              </View>  
-
-              ),
-
             }} />        
 
         </stack.Group>
