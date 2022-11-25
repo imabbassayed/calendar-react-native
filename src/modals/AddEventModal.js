@@ -13,9 +13,32 @@ import {Picker} from '@react-native-picker/picker';
 
 const AddEventModal = (props) => {
 
+
+const [title, setTitle] = useState("");
+const [location, setLocation] = useState("");
 const [isAllDayEnabled, setIsAllDayEnabled] = useState(false);
 const toggleAllDaySwitch = () => setIsAllDayEnabled(previousState => !previousState);
 const [selectedRepeatValue, setSelectedRepeatValue] = useState(0);
+
+
+const closeAddEventModal= () =>{
+
+}
+
+const addEvent = () => {
+
+    const titleInvalid  = title.length == 0;
+
+    if(titleInvalid){
+      Alert.alert(
+        "Adding Event Failed !",
+        "Please enter a title",
+      );
+      return;
+    }
+
+    
+}
 
 
   return(
