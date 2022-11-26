@@ -11,11 +11,12 @@ import { IconButton } from '../components/IconButton';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import AddEventModal from '../modals/AddEventModal';
+import SettingsModal from '../modals/SettingsModal';
 
 const HomeScreen = ({navigation}) => {
 
   const [showAddEventModal, setShowAddEventModal] = useState(false);
-  const [showSettingsModal, setShowSettingsModal] = useState(true);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
 
   return(
   <SafeAreaView style={{
@@ -23,6 +24,7 @@ const HomeScreen = ({navigation}) => {
     backgroundColor: '#FFF'}}>
 
     <AddEventModal isVisible={showAddEventModal} close={() => setShowAddEventModal(false)} />
+    <SettingsModal isVisible={showSettingsModal} close={() => setShowSettingsModal(false)} />
 
 
     <View style={{
@@ -38,7 +40,7 @@ const HomeScreen = ({navigation}) => {
                 />
 
                 <IconButton
-                  onPress={() => alert('This is a button!')}
+                  onPress={() => setShowSettingsModal(true) }
                   icon = {<Ionicons name="settings-outline" size={35} color="#AD40AF" />}
                   title = ""
                   style={{left:330}}

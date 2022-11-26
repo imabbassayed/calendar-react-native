@@ -149,8 +149,8 @@ const addEvent = () => {
                 <TouchableOpacity
                 onPress={props.close}
                 style={{
-                    width: 75,
-                    height: 75,
+                    width: 60,
+                    height: 60,
                     alignItems: 'center',
                     justifyContent: 'center',
                     borderRadius : 50,
@@ -161,15 +161,15 @@ const addEvent = () => {
                   }}             
                 > 
                 <View>
-                <Ionicons name="close" size="67" color="white" />          
+                <Ionicons name="close" size="52" color="white" />          
                 </View>
     
                 </TouchableOpacity>
 
                 <TouchableOpacity
                 style={{
-                    width: 75,
-                    height: 75,
+                    width: 60,
+                    height: 60,
                     alignItems: 'center',
                     justifyContent: 'center',
                     borderRadius : 50,
@@ -178,7 +178,7 @@ const addEvent = () => {
                 }}             
                 > 
                     <View>
-                    <Ionicons name="checkmark-done-outline" size="55" color="white" />          
+                    <Ionicons name="checkmark-done-outline" size="40" color="white" />          
                     </View>
                 
                 </TouchableOpacity>

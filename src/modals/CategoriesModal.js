@@ -11,11 +11,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {Picker} from '@react-native-picker/picker';
 
 
-const SettingsModal = (props) => {
-
-
-
-
+const CategoriesModal = (props) => {
 
   return(
     <View>
@@ -39,7 +35,7 @@ const SettingsModal = (props) => {
                 fontSize: 20,
                 fontWeight: '500',
                 color: '#AD40AF',
-            }}>Settings</Text>
+            }}>Categories</Text>
             
 
                 <View style={{flexDirection:'row'}}>
@@ -79,4 +75,4 @@ const SettingsModal = (props) => {
   )
 }
 
-export default SettingsModal;
+export default CategoriesModal;
