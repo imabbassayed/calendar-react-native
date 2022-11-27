@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, Text, Switch, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 
 import  Modal  from 'react-native-modal';
 import InputField from '../components/InputField';
@@ -38,20 +38,29 @@ const CategoriesModal = (props) => {
                 color: '#AD40AF',
             }}>Categories</Text>
 
-            <InputField
-                label={'Category *'}
-                icon={
-                    <Ionicons
+
+      
+            <View
+              style={{
+                flexDirection: 'row',
+                borderBottomColor: '#ccc',
+                borderBottomWidth: 1,
+                paddingBottom: 8,
+                marginBottom: 25,
+              }}>
+
+              <Ionicons
                     name="file-tray-full-outline"
                     size={40}
                     color="#666"
-                    style={{marginRight: 5}}
-
+                    style = {{
+                      marginRight : 5
+                    }}
                 />
-                }
-                
-                inputType="Text"
-                text={text => setTitle(text)}
+            <TextInput
+              placeholder= "Categories *"
+              keyboardType="text"
+        style={{flex: 1}}
             />
 
              <TouchableOpacity
@@ -62,14 +71,17 @@ const CategoriesModal = (props) => {
                     justifyContent: 'center',
                     borderRadius : 10,
                     backgroundColor: '#AD40AF',
-                }}             
+                    
+                    
+                  }}             
                 > 
                     <View>
                     <Ionicons name="add" size="40" color="white" />          
                     </View>
                 
-              </TouchableOpacity>    
+              </TouchableOpacity>  
 
+              </View>
         </View>
 
         
