@@ -1,17 +1,54 @@
 import React, {useState} from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 
 import  Modal  from 'react-native-modal';
-import InputField from '../components/InputField';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import DateTimePicker from '@react-native-community/datetimepicker';
-
-import {Picker} from '@react-native-picker/picker';
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { app } from '../../firebaseConfig';
 
 
 const CategoriesModal = (props) => {
+
+  const [category, setCategory] = useState("");
+
+  const validateCategory = () => {
+
+
+    const categoryInvalid  = category.length == 0;
+
+    if(categoryInvalid){
+      Alert.alert(
+        "Insert Failed !",
+        "Please enter a Category",
+      );
+      return;
+  }
+
+    insertCategory()
+  }
+
+
+  const insertCategory =  async () => {
+
+      // Initialize Cloud Firestore and get a reference to the service
+      const db = getFirestore(app);
+
+    try {
+      const docRef = await addDoc(collection(db, "categories"), {
+        first: "Ada",
+        last: "Lovelace",
+        born: 1815
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+
+
+  }
+   
 
   return(
     <View>
@@ -60,10 +97,13 @@ const CategoriesModal = (props) => {
             <TextInput
               placeholder= "Categories *"
               keyboardType="text"
-        style={{flex: 1}}
+              style={{flex: 1}}
+              onChangeText = {(text) => {
+                setCategory(text)
+              }}
             />
 
-             <TouchableOpacity
+             <TouchableOpacity onPress={() => {validateCategory()}}
                 style={{
                     width: 50,
                     height: 50,
