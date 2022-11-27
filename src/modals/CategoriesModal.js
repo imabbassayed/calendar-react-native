@@ -5,27 +5,14 @@ import  Modal  from 'react-native-modal';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { getFirestore, collection, addDoc, query, where, getDocs } from "firebase/firestore";
-import { app } from '../../firebaseConfig';
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import { userId, db } from '../../firebaseConfig';
 
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-
-const auth = getAuth();
-var uid = null;
-// Initialize Cloud Firestore and get a reference to the service
-const db = getFirestore(app);
-var categoriesToDisplay = [];
-
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      uid = user.uid;
-
-    }
-});
 
 const CategoriesModal = (props) => {
+
+  var categoriesToDisplay = [];
+
 
   const [category, setCategory] = useState("");
 
@@ -48,12 +35,10 @@ const CategoriesModal = (props) => {
 
   const insertCategory =  async () => {
 
-    
-
     try {
       await addDoc(collection(db, "categories"), {
         name: category,
-        user: uid
+        user: userId
       });
       fetchCategories();
 
@@ -69,7 +54,7 @@ const CategoriesModal = (props) => {
 
   const fetchCategories = async () => {
 
-    const q = query(collection(db, "categories"), where("user", "==", uid));
+    const q = query(collection(db, "categories"), where("user", "==", userId));
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
@@ -86,7 +71,7 @@ const CategoriesModal = (props) => {
   fetchCategories();
 
 
-  categoriesToDisplay = [{id: '1', name : "Test"}]
+
   return(
     <View>
         <Modal
@@ -158,17 +143,15 @@ const CategoriesModal = (props) => {
                 
               </TouchableOpacity>  
 
-              {categoriesToDisplay.map(category => (
-                
-              <Text key={category.id} style={{
-                color : 'black',
-                marginBottom : 10
-              }}>{category.id}</Text>
-            ))}
-
               </View>
 
-             
+              {categoriesToDisplay.map(category => (
+                
+                <Text key={category.id} style={{
+                  color : 'black',
+                  marginBottom : 10
+                }}>{category.id}</Text>
+              ))}
               
         </View>
 

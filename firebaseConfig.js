@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {getAuth} from "firebase/auth"
+import {getAuth, onAuthStateChanged} from "firebase/auth"
+import { getFirestore } from "firebase/firestore";
 
 import {apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId, measurementId} from '@env';
 
@@ -25,3 +26,9 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
+
+// Initialize Cloud Firestore and get a reference to the service
+export const db = getFirestore(app);
+
+export const userId = auth.currentUser.uid
+
