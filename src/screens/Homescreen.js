@@ -12,6 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import AddEventModal from '../modals/AddEventModal';
 import SettingsModal from '../modals/SettingsModal';
+import CategoriesModal from '../modals/CategoriesModal';
 
 const HomeScreen = ({navigation}) => {
 
@@ -24,7 +25,7 @@ const HomeScreen = ({navigation}) => {
     backgroundColor: '#FFF'}}>
 
     <AddEventModal isVisible={showAddEventModal} close={() => setShowAddEventModal(false)} />
-    <SettingsModal isVisible={showSettingsModal} close={() => setShowSettingsModal(false)} />
+    <CategoriesModal isVisible={showSettingsModal} close={() => setShowSettingsModal(false)} />
 
 
     <View style={{
