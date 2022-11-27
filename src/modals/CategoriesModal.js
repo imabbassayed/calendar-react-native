@@ -14,6 +14,7 @@ const auth = getAuth();
 var uid = null;
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
+var categoriesToDisplay = [];
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -69,18 +70,23 @@ const CategoriesModal = (props) => {
   const fetchCategories = async () => {
 
     const q = query(collection(db, "categories"), where("user", "==", uid));
-
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
+          categoriesToDisplay.push({
+            id : doc.id,
+            name : doc.data().name,
+          })
+            
     });
+
 
   }
 
   fetchCategories();
-   
 
+
+  categoriesToDisplay = [{id: '1', name : "Test"}]
   return(
     <View>
         <Modal
@@ -152,7 +158,18 @@ const CategoriesModal = (props) => {
                 
               </TouchableOpacity>  
 
+              {categoriesToDisplay.map(category => (
+                
+              <Text key={category.id} style={{
+                color : 'black',
+                marginBottom : 10
+              }}>{category.id}</Text>
+            ))}
+
               </View>
+
+             
+              
         </View>
 
         
