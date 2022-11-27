@@ -30,5 +30,11 @@ export const auth = getAuth(app);
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app);
 
-export const userId = auth.currentUser.uid
+var uid = null
+if (auth.currentUser != null){
+   uid = auth.currentUser.uid;
+}
+export const userId = uid;
+
+
 
