@@ -90,7 +90,7 @@ const CategoriesModal = (props) => {
   },[])
 
   return(
-    <SafeAreaView>
+    <SafeAreaView >
         <Modal
         testID={'modal'}
         isVisible = {props.isVisible}
@@ -108,7 +108,10 @@ const CategoriesModal = (props) => {
         }}>
 
       <View style={{
-              flexDirection :'row'
+              flexDirection :'row',
+              borderBottomWidth: 0.5,
+              borderColor: '#AD40AF',
+              marginBottom : 10
           }}>
 
             <Text style={{

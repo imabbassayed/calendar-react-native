@@ -58,12 +58,36 @@ const addEvent = () => {
              borderRadius: 4,
              borderColor: 'rgba(0, 0, 0, 0.1)',
         }}>
+            <View style={{
+              flexDirection :'row',
+              borderBottomWidth: 0.5,
+              borderColor: '#AD40AF',
+              marginBottom : 10
+          }}>
+
             <Text style={{
                 marginBottom: 12,
                 fontSize: 20,
                 fontWeight: '500',
                 color: '#AD40AF',
+                left: 20
             }}>Add Event</Text>
+
+              <TouchableOpacity
+                onPress={props.close}
+                style={{
+                    left: 135,
+                    bottom : 5
+                    
+                  }}             
+                > 
+                <View>
+                <Ionicons name="close" size="30" color="grey" />          
+                </View>
+    
+                </TouchableOpacity>
+
+            </View>
             <InputField
                 label={'Title *'}
                 icon={
