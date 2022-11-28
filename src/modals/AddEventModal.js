@@ -16,14 +16,8 @@ const AddEventModal = (props) => {
 
 const [title, setTitle] = useState("");
 const [location, setLocation] = useState("");
-const [isAllDayEnabled, setIsAllDayEnabled] = useState(false);
-const toggleAllDaySwitch = () => setIsAllDayEnabled(previousState => !previousState);
 const [selectedRepeatValue, setSelectedRepeatValue] = useState(0);
 
-
-const closeAddEventModal= () =>{
-
-}
 
 const addEvent = () => {
 
@@ -117,22 +111,8 @@ const addEvent = () => {
                 inputType="Text"
                 text={text => setLocation(text)}
             />
-            <View style={{flexDirection:'row'}}>
-                <Text style={{
-                    fontSize: 20,
-                    fontWeight: '500',
-                    color: '#AD40AF',
-                    right: 50
-                }}>All Day</Text>
-                <Switch  
-                onChange={toggleAllDaySwitch}
-                value={isAllDayEnabled}
-                trackColor={{true: '#AD40AF'}}
-                />
-            </View>
-
-           
-            <DateTimePicker
+             
+          <DateTimePicker
             mode='datetime'
             value={new Date()}
             style={{
