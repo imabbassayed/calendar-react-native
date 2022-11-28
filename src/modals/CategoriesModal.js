@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert, ScrollView, SafeAreaView } from 'react-native';
 
 import  Modal  from 'react-native-modal';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs, deleteDoc } from "firebase/firestore";
 import { userId, db } from '../../firebaseConfig';
 
 
@@ -14,9 +14,10 @@ const CategoriesModal = (props) => {
 
   const [category, setCategory] = useState("");
   const [categoriesToDisplay, setCategoriesToDisplay] = useState([]);
+  const [categoryToDelete, setCategoryToDelete] = useState(null);
 
+  
   const validateCategory = () => {
-
 
     const categoryInvalid  = category.length == 0;
 
@@ -35,12 +36,12 @@ const CategoriesModal = (props) => {
   const insertCategory =  async () => {
 
     try {
-      await addDoc(collection(db, "categories"), {
+      const docRef = await addDoc(collection(db, "categories"), {
         name: category,
         user: userId
       });
-      fetchCategories();
-
+      setCategoriesToDisplay(categoriesToDisplay => [...categoriesToDisplay, {id : docRef.id, name: category}]);
+      
     } catch (e) {
       Alert.alert(
         "Insert Failed !",
@@ -68,7 +69,7 @@ const CategoriesModal = (props) => {
   },[])
 
   return(
-    <View>
+    <SafeAreaView>
         <Modal
         testID={'modal'}
         isVisible = {props.isVisible}
@@ -140,6 +141,11 @@ const CategoriesModal = (props) => {
 
               </View>
 
+              <ScrollView style={{
+                height : 400
+              }}>
+
+
               {
               categoriesToDisplay.map((category,index) => (
                 <View
@@ -148,9 +154,7 @@ const CategoriesModal = (props) => {
                 paddingBottom: 8,
                 marginBottom: 10,
              
-              
               }}
-              id = {category.id}
               >
 
               <TouchableOpacity 
@@ -177,7 +181,7 @@ const CategoriesModal = (props) => {
               {category.name}
             </Text>
 
-             <TouchableOpacity onPress={() => {validateCategory()}}
+             <TouchableOpacity 
                 style={{
                     width: 40,
                     height: 40,
@@ -185,9 +189,11 @@ const CategoriesModal = (props) => {
                     justifyContent: 'center',
                     borderRadius : 10,
                     backgroundColor: '#666',
-                    
-                    
-                  }}             
+                  }}
+
+                  onPress={() => {
+                    setCategoryToDelete(category.id)
+                  }}
                 > 
                     <View>
                     <Ionicons name="close" size="40" color="white" />          
@@ -195,12 +201,14 @@ const CategoriesModal = (props) => {
                 
               </TouchableOpacity>  
 
-            
+                  
               </View>
 
                 
               
               ))}
+          </ScrollView>
+
               
         </View>
 
@@ -209,7 +217,7 @@ const CategoriesModal = (props) => {
     </Modal>
 
 
-    </View>
+    </SafeAreaView>
     
   )
 }
