@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 
 import  Modal  from 'react-native-modal';
@@ -52,23 +52,20 @@ const CategoriesModal = (props) => {
   }
 
 
+  useEffect(() => {
+      setCategoriesToDisplay([])
+      const fetchCategories = async () => {
+      const q = query(collection(db, "categories"), where("user", "==", userId));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+              setCategoriesToDisplay(categoriesToDisplay => [...categoriesToDisplay, {id : doc.id, name: doc.data().name}]);
+      });
 
+      }
 
-  const fetchCategories = async () => {
-    console.log(userId)
-    const q = query(collection(db, "categories"), where("user", "==", userId));
-          const querySnapshot = await getDocs(q);
-          querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id)
-            setCategoriesToDisplay(categoriesToDisplay => [...categoriesToDisplay, {id : doc.id, name: doc.data().name}]);
-      
-    });
-
-  }
-
-  console.log(categoriesToDisplay)
-
+    fetchCategories();
+  },[])
 
   return(
     <View>
@@ -143,7 +140,9 @@ const CategoriesModal = (props) => {
 
               </View>
 
-              {categoriesToDisplay.map(category => (
+              {
+              
+              categoriesToDisplay.map(category => (
                 
                 <Text key={category.id} style={{
                   color : 'black',
