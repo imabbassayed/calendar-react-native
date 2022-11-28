@@ -195,6 +195,7 @@ const CategoriesModal = (props) => {
                 flexDirection: 'row',
                 paddingBottom: 8,
                 marginBottom: 10,
+              
              
               }}
               >

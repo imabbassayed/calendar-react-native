@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 
 import  Modal  from 'react-native-modal';
 import InputField from '../components/InputField';
@@ -10,6 +10,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 import {Picker} from '@react-native-picker/picker';
 
+import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
+import { userId, db } from '../../firebaseConfig';
 
 const AddEventModal = (props) => {
 
@@ -17,6 +19,9 @@ const AddEventModal = (props) => {
 const [title, setTitle] = useState("");
 const [location, setLocation] = useState("");
 const [selectedRepeatValue, setSelectedRepeatValue] = useState(0);
+const [selectedCategoryValue, setSelectedCategoryValue] = useState(0);
+const [categoriesToDisplay, setCategoriesToDisplay] = useState([]);
+
 
 
 const validateEvent = () => {
@@ -34,6 +39,44 @@ const validateEvent = () => {
     addEvent();
     
 }
+
+const addEvent =  async () => {
+    console.log("Add event triggerd")
+    try {
+      const docRef = await addDoc(collection(db, "events"), {
+        title: title,
+        location: location,
+        repeat: selectedRepeatValue,
+        category: selectedCategoryValue,
+        user:userId
+      });
+
+      props.close
+      
+    } catch (e) {
+      Alert.alert(
+        "Insert Failed !",
+        "Please try again",
+      );
+    }
+
+
+  } 
+
+useEffect(() => {
+    setCategoriesToDisplay([])
+    const fetchCategories = async () => {
+    const q = query(collection(db, "categories"), where("user", "==", userId));
+          const querySnapshot = await getDocs(q);
+          querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            setCategoriesToDisplay(categoriesToDisplay => [...categoriesToDisplay, {id : doc.id, name: doc.data().name}]);
+    });
+
+    }
+
+  fetchCategories();
+},[])
 
 
   return(
@@ -149,6 +192,27 @@ const validateEvent = () => {
                     <Picker.Item label="Every Month" value="3" />
                     <Picker.Item label="Every Year" value="4" />
                 </Picker>
+                
+                <Text style={{
+                    fontSize: 20,
+                    fontWeight: '500',
+                    color: '#AD40AF',
+                    marginTop: 20,
+                    
+                }}>Category</Text>
+                <Picker
+                selectedValue={selectedCategoryValue}
+                style={{ height: 200, width: 400, marginTop : -75}}
+                onValueChange={(itemValue) => setSelectedCategoryValue(itemValue)}
+                >
+
+             {
+              categoriesToDisplay.map((category,index) => (
+                <Picker.Item label={category.name} value={category.id} id={category.id} />
+              ))}
+              
+              </Picker>
+
 
                 <View style={{flexDirection:'row'}}>
                 <TouchableOpacity
@@ -172,6 +236,7 @@ const validateEvent = () => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
+                onPress={() => {validateEvent()}}
                 style={{
                     width: 60,
                     height: 60,
