@@ -107,14 +107,33 @@ const CategoriesModal = (props) => {
              borderColor: 'rgba(0, 0, 0, 0.1)',
         }}>
 
+      <View style={{
+              flexDirection :'row'
+          }}>
+
             <Text style={{
                 marginBottom: 12,
                 fontSize: 20,
                 fontWeight: '500',
                 color: '#AD40AF',
+                left: 20
             }}>Categories</Text>
 
+              <TouchableOpacity
+                onPress={props.close}
+                style={{
+                    left: 135,
+                    bottom : 5
+                    
+                  }}             
+                > 
+                <View>
+                <Ionicons name="close" size="30" color="grey" />          
+                </View>
+    
+                </TouchableOpacity>
 
+            </View>
       
             <View
               style={{
