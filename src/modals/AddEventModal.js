@@ -155,24 +155,38 @@ useEffect(() => {
                 inputType="Text"
                 text={text => setLocation(text)}
             />
+
+            <Text style={{
+                    fontSize: 20,
+                    fontWeight: '500',
+                    color: '#AD40AF',
+                    marginTop: 20,
+                    
+                }}>Date & Time</Text>
              
           <DateTimePicker
+            name='fromdatetime'
             mode='datetime'
             value={new Date()}
             style={{
-                marginTop: 30,
-                marginBottom: 50,
+                marginTop: 15,
+                marginBottom: 10,
+                width : 200
+            }} 
+            />
+          
+          <DateTimePicker
+            name='todatetime'
+            mode='datetime'
+            value={new Date()}
+            style={{
+                marginTop: 10,
+                marginBottom: 30,
+                width : 200
             }} 
             />
 
-            <DateTimePicker
-            mode='datetime'
-            value={new Date()}
-            style={{
-                marginTop: 30,
-                marginBottom: 10,
-            }} 
-            />
+           
 
             <Text style={{
                     fontSize: 20,
