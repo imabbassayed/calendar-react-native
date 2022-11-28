@@ -11,10 +11,9 @@ import { userId, db } from '../../firebaseConfig';
 
 const CategoriesModal = (props) => {
 
-  var categoriesToDisplay = [];
-
 
   const [category, setCategory] = useState("");
+  const [categoriesToDisplay, setCategoriesToDisplay] = useState([]);
 
   const validateCategory = () => {
 
@@ -52,24 +51,23 @@ const CategoriesModal = (props) => {
 
   }
 
-  const fetchCategories = async () => {
 
+
+
+  const fetchCategories = async () => {
+    console.log(userId)
     const q = query(collection(db, "categories"), where("user", "==", userId));
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
-          categoriesToDisplay.push({
-            id : doc.id,
-            name : doc.data().name,
-          })
-            
+            console.log(doc.id)
+            setCategoriesToDisplay(categoriesToDisplay => [...categoriesToDisplay, {id : doc.id, name: doc.data().name}]);
+      
     });
-
 
   }
 
-  fetchCategories();
-
+  console.log(categoriesToDisplay)
 
 
   return(
