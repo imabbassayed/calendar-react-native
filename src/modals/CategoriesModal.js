@@ -100,7 +100,7 @@ const CategoriesModal = (props) => {
                 borderBottomColor: '#ccc',
                 borderBottomWidth: 1,
                 paddingBottom: 8,
-                marginBottom: 25,
+                marginBottom: 50,
               }}>
 
               <Ionicons
@@ -141,13 +141,65 @@ const CategoriesModal = (props) => {
               </View>
 
               {
+              categoriesToDisplay.map((category,index) => (
+                <View
+              style={{
+                flexDirection: 'row',
+                paddingBottom: 8,
+                marginBottom: 10,
+             
               
-              categoriesToDisplay.map(category => (
+              }}
+              id = {category.id}
+              >
+
+              <TouchableOpacity 
+                style={{
+                    width: 40,
+                    height: 40,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius : 10,
+                    backgroundColor: '#AD40AF',
+                    marginRight : 100,
+                  }}             
+                > 
+                <Text style={{
+                  color: 'white'
+                }}>{index + 1}</Text>
+              </TouchableOpacity>  
+
+            <Text style={{
+               fontSize: 20,
+               fontWeight: '500',
+               marginRight : 100,
+            }}>
+              {category.name}
+            </Text>
+
+             <TouchableOpacity onPress={() => {validateCategory()}}
+                style={{
+                    width: 40,
+                    height: 40,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius : 10,
+                    backgroundColor: '#666',
+                    
+                    
+                  }}             
+                > 
+                    <View>
+                    <Ionicons name="close" size="40" color="white" />          
+                    </View>
                 
-                <Text key={category.id} style={{
-                  color : 'black',
-                  marginBottom : 10
-                }}>{category.id}</Text>
+              </TouchableOpacity>  
+
+            
+              </View>
+
+                
+              
               ))}
               
         </View>
