@@ -5,7 +5,7 @@ import  Modal  from 'react-native-modal';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { collection, addDoc, query, where, getDocs, deleteDoc } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { userId, db } from '../../firebaseConfig';
 
 
@@ -14,8 +14,29 @@ const CategoriesModal = (props) => {
 
   const [category, setCategory] = useState("");
   const [categoriesToDisplay, setCategoriesToDisplay] = useState([]);
-  const [categoryToDelete, setCategoryToDelete] = useState(null);
 
+
+  
+  const deleteCategory = async (categoryToDelete, indexOfCategoryToDelete) => {
+
+
+    try {
+      await deleteDoc(doc(db, "categories", categoryToDelete));
+      var tempArray = [...categoriesToDisplay]
+      tempArray.splice(indexOfCategoryToDelete, 1);
+      console.log(tempArray)
+      setCategoriesToDisplay(tempArray);
+      
+    } catch (e) {
+      console.log(e)
+      Alert.alert(
+        "Delete Failed !",
+        "Please try again",
+      );
+  }
+
+
+  }
   
   const validateCategory = () => {
 
@@ -192,7 +213,7 @@ const CategoriesModal = (props) => {
                   }}
 
                   onPress={() => {
-                    setCategoryToDelete(category.id)
+                    deleteCategory(category.id, index);
                   }}
                 > 
                     <View>
