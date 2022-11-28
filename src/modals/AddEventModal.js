@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, Text, Switch, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import  Modal  from 'react-native-modal';
 import InputField from '../components/InputField';
@@ -19,7 +19,7 @@ const [location, setLocation] = useState("");
 const [selectedRepeatValue, setSelectedRepeatValue] = useState(0);
 
 
-const addEvent = () => {
+const validateEvent = () => {
 
     const titleInvalid  = title.length == 0;
 
@@ -31,6 +31,7 @@ const addEvent = () => {
       return;
     }
 
+    addEvent();
     
 }
 

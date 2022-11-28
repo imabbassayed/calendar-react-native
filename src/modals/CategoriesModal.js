@@ -19,7 +19,6 @@ const CategoriesModal = (props) => {
   
   const deleteCategory = async (categoryToDelete, indexOfCategoryToDelete) => {
 
-
     try {
       await deleteDoc(doc(db, "categories", categoryToDelete));
       var tempArray = [...categoriesToDisplay]
