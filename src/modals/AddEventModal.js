@@ -18,6 +18,8 @@ const AddEventModal = (props) => {
 
 const [title, setTitle] = useState("");
 const [location, setLocation] = useState("");
+const [fromDatetime, setFromDatetime] = useState("");
+const [toDatetime, setToDatetime] = useState("");
 const [selectedRepeatValue, setSelectedRepeatValue] = useState(0);
 const [selectedCategoryValue, setSelectedCategoryValue] = useState(0);
 const [categoriesToDisplay, setCategoriesToDisplay] = useState([]);
@@ -173,6 +175,7 @@ useEffect(() => {
                 marginBottom: 10,
                 width : 200
             }} 
+            onChange = {(_,date) => setFromDatetime(date)}
             />
           
           <DateTimePicker
@@ -184,6 +187,7 @@ useEffect(() => {
                 marginBottom: 30,
                 width : 200
             }} 
+            onChange = {(_,date) => setToDatetime(date)}
             />
 
            
