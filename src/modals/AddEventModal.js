@@ -18,8 +18,8 @@ const AddEventModal = (props) => {
 
 const [title, setTitle] = useState("");
 const [location, setLocation] = useState("");
-const [fromDatetime, setFromDatetime] = useState("");
-const [toDatetime, setToDatetime] = useState("");
+const [fromDatetime, setFromDatetime] = useState(new Date());
+const [toDatetime, setToDatetime] = useState(new Date());
 const [selectedRepeatValue, setSelectedRepeatValue] = useState(0);
 const [selectedCategoryValue, setSelectedCategoryValue] = useState(0);
 const [categoriesToDisplay, setCategoriesToDisplay] = useState([]);
@@ -48,6 +48,8 @@ const addEvent =  async () => {
       const docRef = await addDoc(collection(db, "events"), {
         title: title,
         location: location,
+        from: fromDatetime,
+        to : toDatetime,
         repeat: selectedRepeatValue,
         category: selectedCategoryValue,
         user:userId
@@ -169,7 +171,7 @@ useEffect(() => {
           <DateTimePicker
             name='fromdatetime'
             mode='datetime'
-            value={new Date()}
+            value={fromDatetime}
             style={{
                 marginTop: 15,
                 marginBottom: 10,
@@ -181,12 +183,12 @@ useEffect(() => {
           <DateTimePicker
             name='todatetime'
             mode='datetime'
-            value={new Date()}
             style={{
                 marginTop: 10,
                 marginBottom: 30,
                 width : 200
             }} 
+            value = {toDatetime}
             onChange = {(_,date) => setToDatetime(date)}
             />
 
