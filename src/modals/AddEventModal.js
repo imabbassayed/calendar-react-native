@@ -43,7 +43,6 @@ const validateEvent = () => {
 }
 
 const addEvent =  async () => {
-    console.log("Add event triggerd")
     try {
       const docRef = await addDoc(collection(db, "events"), {
         title: title,
@@ -54,7 +53,6 @@ const addEvent =  async () => {
         category: selectedCategoryValue,
         user:userId
       });
-
       props.close
       
     } catch (e) {

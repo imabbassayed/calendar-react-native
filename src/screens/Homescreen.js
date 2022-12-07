@@ -34,7 +34,6 @@ const HomeScreen = ({navigation}) => {
       borderColor: '#AD40AF'}}>  
                 
                 <IconButton
-                  onPress={() => alert('This is a button!')}
                   icon = {<Ionicons name="menu-outline" size={35} color="#AD40AF" />}
                   title = ""
                   style={{left:10}}
@@ -54,7 +53,7 @@ const HomeScreen = ({navigation}) => {
 
         items={{
           '2012-05-22': [{name: 'item 1 - any js object'}],
-          '2022-08-21': [{name: 'item 2 - any js object', height: 1500}],
+          '2022-08-21': [{name: 'item 2 - any js objectasdfasdfasdfadsf', height: 50000}],
           '2022-08-22': [],
         }}
 
