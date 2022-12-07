@@ -14,10 +14,20 @@ import AddEventModal from '../modals/AddEventModal';
 import SettingsModal from '../modals/SettingsModal';
 import CategoriesModal from '../modals/CategoriesModal';
 
+import { collection, addDoc, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { userId, db } from '../../firebaseConfig';
+
 const HomeScreen = ({navigation}) => {
 
   const [showAddEventModal, setShowAddEventModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
+
+  const [eventsToDisplay, setEventsToDisplay] = useState([]);
+
+
+  '2012-05-22': [{name: 'item 1 - any js object'}],
+          '2022-08-21': [{name: 'item 2 - any js objectasdfasdfasdfadsf', height: 50000}],
+          '2022-08-22': [],
 
   return(
   <SafeAreaView style={{
@@ -51,17 +61,18 @@ const HomeScreen = ({navigation}) => {
 
     <Agenda
 
-        items={{
-          '2012-05-22': [{name: 'item 1 - any js object'}],
-          '2022-08-21': [{name: 'item 2 - any js objectasdfasdfasdfadsf', height: 50000}],
-          '2022-08-22': [],
-        }}
+        items={eventsToDisplay}
 
         theme={{
           selectedDayBackgroundColor: '#AD40AF',
-          agendaKnobColor: '#AD40AF'
+          agendaKnobColor: '#AD40AF',
         }}
         selected={new Date()}
+
+        // Max amount of months allowed to scroll to the past. Default = 50
+        pastScrollRange={12}
+        // Max amount of months allowed to scroll to the future. Default = 50
+        futureScrollRange={12}
     >
 
     </Agenda>
