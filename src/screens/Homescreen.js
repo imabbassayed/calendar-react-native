@@ -19,15 +19,23 @@ import { userId, db } from '../../firebaseConfig';
 
 const HomeScreen = ({navigation}) => {
 
+  const monthsLimit = 12;
   const [showAddEventModal, setShowAddEventModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
-  const [eventsToDisplay, setEventsToDisplay] = useState([]);
+  const eventsToDisplay = Object.create(null)  
 
-
-  '2012-05-22': [{name: 'item 1 - any js object'}],
-          '2022-08-21': [{name: 'item 2 - any js objectasdfasdfasdfadsf', height: 50000}],
-          '2022-08-22': [],
+  var today = new Date();
+  for (let i = 0; i <= 365; i++) {
+    eventsToDisplay[today.toJSON().slice(0, 10)] = []
+    today.setDate(today.getDate() - 1)
+  }
+  var today = new Date();
+  for (let i = 0; i <= 365; i++) {
+    eventsToDisplay[today.toJSON().slice(0, 10)] = []
+    today.setDate(today.getDate() + 1)
+  }
+  
 
   return(
   <SafeAreaView style={{
@@ -67,12 +75,12 @@ const HomeScreen = ({navigation}) => {
           selectedDayBackgroundColor: '#AD40AF',
           agendaKnobColor: '#AD40AF',
         }}
-        selected={new Date()}
+        selected={(new Date()).toJSON().slice(0, 10)}
 
         // Max amount of months allowed to scroll to the past. Default = 50
-        pastScrollRange={12}
+        pastScrollRange={monthsLimit}
         // Max amount of months allowed to scroll to the future. Default = 50
-        futureScrollRange={12}
+        futureScrollRange={monthsLimit}
     >
 
     </Agenda>
