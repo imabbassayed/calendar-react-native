@@ -3,6 +3,9 @@ import {
   SafeAreaView,
   View,
   TouchableOpacity,
+  Text,
+  StyleSheet,
+  Button
 } from 'react-native';
 
 import {Agenda} from 'react-native-calendars';
@@ -17,13 +20,13 @@ import CategoriesModal from '../modals/CategoriesModal';
 import { collection, addDoc, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { userId, db } from '../../firebaseConfig';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = () => {
 
   const monthsLimit = 12;
   const [showAddEventModal, setShowAddEventModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
-  const eventsToDisplay = Object.create(null)  
+  const [eventsToDisplay, setEventsToDisplay] = useState(Object.create(null));
 
   var today = new Date();
   for (let i = 0; i <= 365; i++) {
@@ -44,13 +47,27 @@ const HomeScreen = ({navigation}) => {
             const date = new Date(doc.data().from.seconds * 1000 + doc.data().from.nanoseconds / 1000000 ).toJSON().slice(0, 10);
             const event = Object.create(null)
             event.name = doc.data().title
-            eventsToDisplay[date] = [event]
+
     });
 
     }
 
   fetchEvents();
 
+  const renderItem = (item) => {
+    return (
+        <TouchableOpacity  style={styles.item}>
+        <View>
+          <Text style={styles.itemHourText}>{item.hour}</Text>
+          <Text style={styles.itemDurationText}>{item.duration}</Text>
+        </View>
+        <Text style={styles.itemTitleText}>{item.title}</Text>
+        <View style={styles.itemButtonContainer}>
+          <Button color={'grey'} title={'Info'}/>
+        </View>
+      </TouchableOpacity>
+    );
+}
   
   return(
   <SafeAreaView style={{
@@ -84,8 +101,14 @@ const HomeScreen = ({navigation}) => {
 
     <Agenda
 
-        items={eventsToDisplay}
+        items={{
+          "2022-03-12" :
+           [{hour: '4pm', duration: '1h', title: 'Pilates ABC'}]     
+        }}
 
+        renderItem={renderItem}
+
+        
         theme={{
           selectedDayBackgroundColor: '#AD40AF',
           agendaKnobColor: '#AD40AF',
@@ -148,5 +171,45 @@ const HomeScreen = ({navigation}) => {
   </SafeAreaView>  
   )
 }
+
+const styles = StyleSheet.create({
+  item: {
+    padding: 20,
+    backgroundColor: 'white',
+    borderBottomWidth: 1,
+    borderBottomColor: 'lightgrey',
+    flexDirection: 'row'
+  },
+  itemHourText: {
+    color: 'black'
+  },
+  itemDurationText: {
+    color: 'grey',
+    fontSize: 12,
+    marginTop: 4,
+    marginLeft: 4
+  },
+  itemTitleText: {
+    color: 'black',
+    marginLeft: 16,
+    fontWeight: 'bold',
+    fontSize: 16
+  },
+  itemButtonContainer: {
+    flex: 1,
+    alignItems: 'flex-end'
+  },
+  emptyItem: {
+    paddingLeft: 20,
+    height: 52,
+    justifyContent: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: 'lightgrey'
+  },
+  emptyItemText: {
+    color: 'lightgrey',
+    fontSize: 14
+  }
+});
 
 export default HomeScreen;

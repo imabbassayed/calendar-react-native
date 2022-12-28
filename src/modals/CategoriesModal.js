@@ -23,11 +23,9 @@ const CategoriesModal = (props) => {
       await deleteDoc(doc(db, "categories", categoryToDelete));
       var tempArray = [...categoriesToDisplay]
       tempArray.splice(indexOfCategoryToDelete, 1);
-      console.log(tempArray)
       setCategoriesToDisplay(tempArray);
       
     } catch (e) {
-      console.log(e)
       Alert.alert(
         "Delete Failed !",
         "Please try again",
