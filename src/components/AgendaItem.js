@@ -1,34 +1,26 @@
-import React, {useCallback} from 'react';
-import {StyleSheet, Alert, View, Text, TouchableOpacity, Button} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity, Button} from 'react-native';
+import React from 'react';
 
+export default function AgendaItem ({item}) {
 
-const AgendaItem = (props) => {
-  const {item} = props;
+  console.log(item)
 
-  if (isEmpty(item)) {
-    return (
-      <View style={styles.emptyItem}>
-        <Text style={styles.emptyItemText}>No Events Planned Today</Text>
-      </View>
-    );
-  }
+ 
 
   return (
-    <TouchableOpacity onPress={itemPressed} style={styles.item} testID={testIDs.agenda.ITEM}>
+    <TouchableOpacity  style={styles.item} >
       <View>
         <Text style={styles.itemHourText}>{item.hour}</Text>
         <Text style={styles.itemDurationText}>{item.duration}</Text>
       </View>
       <Text style={styles.itemTitleText}>{item.title}</Text>
       <View style={styles.itemButtonContainer}>
-        <Button color={'grey'} title={'Info'} onPress={buttonPressed}/>
+        <Button color={'grey'} title={'Info'} />
       </View>
     </TouchableOpacity>
   );
+
 };
-
-export default React.memo(AgendaItem);
-
 
 const styles = StyleSheet.create({
   item: {
