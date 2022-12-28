@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   emptyItem: {
     paddingLeft: 20,
-    height: 52,
+    height: 33,
     justifyContent: 'center',
     borderBottomWidth: 1,
     borderBottomColor: 'lightgrey'
