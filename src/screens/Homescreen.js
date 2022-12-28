@@ -11,7 +11,7 @@ import {
 import {Agenda} from 'react-native-calendars';
 
 import { IconButton } from '../components/IconButton';
-import AgendaItem from '../components/AgendaItem'
+import EventItem from '../components/EventItem'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import AddEventModal from '../modals/AddEventModal';
@@ -57,7 +57,7 @@ const HomeScreen = () => {
 
   const renderItem = (item) => {
     return(
-      <AgendaItem item={item}/>
+      <EventItem item={item}/>
     )
   }
 
