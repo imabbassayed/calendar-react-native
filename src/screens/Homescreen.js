@@ -37,6 +37,21 @@ const HomeScreen = ({navigation}) => {
   }
   
 
+  const fetchEvents = async () => {
+    const q = query(collection(db, "events"), where("user", "==", userId));
+          const querySnapshot = await getDocs(q);
+          querySnapshot.forEach((doc) => {
+            const date = new Date(doc.data().from.seconds * 1000 + doc.data().from.nanoseconds / 1000000 ).toJSON().slice(0, 10);
+            const event = Object.create(null)
+            event.name = doc.data().title
+            eventsToDisplay[date] = [event]
+    });
+
+    }
+
+  fetchEvents();
+
+  
   return(
   <SafeAreaView style={{
     flex: 1,
@@ -74,6 +89,7 @@ const HomeScreen = ({navigation}) => {
         theme={{
           selectedDayBackgroundColor: '#AD40AF',
           agendaKnobColor: '#AD40AF',
+          agendaTodayColor: '#AD40AF',
         }}
         selected={(new Date()).toJSON().slice(0, 10)}
 
