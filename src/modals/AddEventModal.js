@@ -191,7 +191,7 @@ useEffect(() => {
             />
 
            
-
+            /*
             <Text style={{
                     fontSize: 20,
                     fontWeight: '500',

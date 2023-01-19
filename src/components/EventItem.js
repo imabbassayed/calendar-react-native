@@ -3,9 +3,6 @@ import React from 'react';
 
 export default function AgendaItem ({item}) {
 
-  console.log(item)
-
- 
 
   return (
     <TouchableOpacity  style={styles.item} >

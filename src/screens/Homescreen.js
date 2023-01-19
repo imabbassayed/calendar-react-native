@@ -1,11 +1,8 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import {
   SafeAreaView,
   View,
   TouchableOpacity,
-  Text,
-  StyleSheet,
-  Button
 } from 'react-native';
 
 import {Agenda} from 'react-native-calendars';
@@ -18,7 +15,7 @@ import AddEventModal from '../modals/AddEventModal';
 import SettingsModal from '../modals/SettingsModal';
 import CategoriesModal from '../modals/CategoriesModal';
 
-import { collection, addDoc, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { collection, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { userId, db } from '../../firebaseConfig';
 
 const HomeScreen = () => {
@@ -28,33 +25,14 @@ const HomeScreen = () => {
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
   const [eventsToDisplay, setEventsToDisplay] = useState(Object.create(null));
-
-  var today = new Date();
-  for (let i = 0; i <= 365; i++) {
-    eventsToDisplay[today.toJSON().slice(0, 10)] = []
-    today.setDate(today.getDate() - 1)
+  eventsToDisplay["2022-12-28"] = []
+  setEventsToDisplay(existingValues => ({
+    ...existingValues,
+    ["2022-12-28"] : [...existingValues["2022-12-28"], {"category": "ll3HQ6o8Zrh6W5sZEAKP", "from": "2022-11-30T12:30:48.498Z", "location": "Location", "title": "Test", "to": "2022-11-30T12:40:00.000Z"}],
   }
-  var today = new Date();
-  for (let i = 0; i <= 365; i++) {
-    eventsToDisplay[today.toJSON().slice(0, 10)] = []
-    today.setDate(today.getDate() + 1)
-  }
-  
+  ))
 
-  const fetchEvents = async () => {
-    const q = query(collection(db, "events"), where("user", "==", userId));
-          const querySnapshot = await getDocs(q);
-          querySnapshot.forEach((doc) => {
-            const date = new Date(doc.data().from.seconds * 1000 + doc.data().from.nanoseconds / 1000000 ).toJSON().slice(0, 10);
-            const event = Object.create(null)
-            event.name = doc.data().title
-
-    });
-
-    }
-
-  fetchEvents();
-
+ 
   const renderItem = (item) => {
     return(
       <EventItem item={item}/>
@@ -93,12 +71,8 @@ const HomeScreen = () => {
 
     <Agenda
 
-        items={{
-          "2022-12-28" :
-           [{hour: '4pm', duration: '1h', title: 'Pilates ABC'}]     
-        }}
+        items={eventsToDisplay}
 
-        renderItem={renderItem}
 
         theme={{
           selectedDayBackgroundColor: '#AD40AF',
