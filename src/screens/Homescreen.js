@@ -53,13 +53,15 @@ const HomeScreen = () => {
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
             const eventsToDisplayCopy = {...eventsToDisplay}
-            const date = new Date ((doc.data().from.seconds) * 1000)
-            const formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth()+1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-            eventsToDisplayCopy[formattedDate] = [...eventsToDisplayCopy[formattedDate], {
+            const fromDate = new Date ((doc.data().from.seconds) * 1000)
+            const formattedFromDate = fromDate.getFullYear() + '-' + ('0' + (fromDate.getMonth()+1)).slice(-2) + '-' + ('0' + fromDate.getDate()).slice(-2);
+            const toDate =  new Date ((doc.data().to.seconds) * 1000)
+            eventsToDisplayCopy[formattedFromDate] = [...eventsToDisplayCopy[formattedFromDate], {
               title: doc.data().title,
-              start: doc.data().getHours+':'+doc.data().getMinutes,
-              end: doc.data().to.seconds,
-              type: doc.data().category,
+              start: fromDate.toLocaleString('en-US', { hour: 'numeric',minute: 'numeric', hour12: true }),
+              end: toDate.toLocaleString('en-US', { hour: 'numeric',minute: 'numeric', hour12: true }),
+              category: doc.data().category,
+              location: doc.data().location
             },
              ]
             setEventsToDisplay(eventsToDisplayCopy)
