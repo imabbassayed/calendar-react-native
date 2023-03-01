@@ -41,21 +41,20 @@ const HomeScreen = () => {
   const [showAddEventModal, setShowAddEventModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
-  const [eventsToDisplay, setEventsToDisplay] = useState(emptyDates);
-
+  const eventsToDisplayCopy = {...emptyDates}
 
   
 
-  useEffect(() => {
-    setEventsToDisplay(emptyDates)
+
     const fetchEvents = async () => {
     const q = query(collection(db, "events"), where("user", "==", userId));
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
-            const eventsToDisplayCopy = {...eventsToDisplay}
+            console.log(doc.data().title)
             const fromDate = new Date ((doc.data().from.seconds) * 1000)
             const formattedFromDate = fromDate.getFullYear() + '-' + ('0' + (fromDate.getMonth()+1)).slice(-2) + '-' + ('0' + fromDate.getDate()).slice(-2);
             const toDate =  new Date ((doc.data().to.seconds) * 1000)
+            console.log(formattedFromDate)
             eventsToDisplayCopy[formattedFromDate] = [...eventsToDisplayCopy[formattedFromDate], {
               title: doc.data().title,
               start: fromDate.toLocaleString('en-US', { hour: 'numeric',minute: 'numeric', hour12: true }),
@@ -64,15 +63,11 @@ const HomeScreen = () => {
               location: doc.data().location
             },
              ]
-            setEventsToDisplay(eventsToDisplayCopy)
-
-          
-            
+            console.log(eventsToDisplayCopy)
     });
 
     }
     fetchEvents();
-},[])
 
 
   return(
@@ -122,7 +117,7 @@ const HomeScreen = () => {
         // Max amount of months allowed to scroll to the future. Default = 50
         futureScrollRange={monthsLimit}
 
-        items = {eventsToDisplay}
+        items = {eventsToDisplayCopy}
 
         renderItem={(item) => {
           return EventItem(item);
