@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import {
   SafeAreaView,
   View,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 
 import {Agenda} from 'react-native-calendars';

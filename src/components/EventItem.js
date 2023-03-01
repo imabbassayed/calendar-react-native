@@ -1,4 +1,4 @@
-import {StyleSheet, View, Text, TouchableOpacity, Button} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity, Linking} from 'react-native';
 import React from 'react';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -7,7 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 export default function EventItem (item) {
 
   return (
-    <TouchableOpacity  style={styles.item} >
+    <View  style={styles.item} >
 
       <View style={{width:150}}>
         <View>
@@ -21,20 +21,22 @@ export default function EventItem (item) {
       </View>
 
       <View>
-      <View>
-          <Ionicons name="location-outline" size={15} color="#AD40AF" />
-          <Text style={styles.itemHourText}> {item.location}</Text>
-        </View>
 
         <View >
+          <Ionicons name="location-outline" size={15} color="#AD40AF" />
+          <Text style={styles.itemLocationText}  onPress={() => {
+             Linking.openURL('https://maps.google.com/?q='+item.location)
+            }}>{item.location}</Text>
+        </View>
+
+        <View>
           <Ionicons name="file-tray-full-outline" size={15} color="#AD40AF" />
           <Text style={styles.itemTitleText}> {'Sport'}</Text>
         </View>
-        
 
       </View>
 
-    </TouchableOpacity>
+    </View>
   );
 
 };
@@ -48,7 +50,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   itemHourText: {
-    color: 'black'
+    color: 'black',
+    fontSize: 12
+  },
+  itemLocationText: {
+    color: 'blue',
+    fontSize: 12
   },
   itemTitleText: {
     color: 'black',
