@@ -1,14 +1,13 @@
 import {StyleSheet, View, Text, TouchableOpacity, Button} from 'react-native';
 import React from 'react';
 
-export default function AgendaItem ({item}) {
-
+export default function EventItem (item) {
 
   return (
     <TouchableOpacity  style={styles.item} >
       <View>
-        <Text style={styles.itemHourText}>{item.hour}</Text>
-        <Text style={styles.itemDurationText}>{item.duration}</Text>
+        <Text style={styles.itemHourText}>{item.start}</Text>
+        <Text style={styles.itemDurationText}>{item.end}</Text>
       </View>
       <Text style={styles.itemTitleText}>{item.title}</Text>
       <View style={styles.itemButtonContainer}>

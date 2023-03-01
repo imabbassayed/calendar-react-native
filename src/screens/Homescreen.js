@@ -1,8 +1,8 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState, useEffect} from 'react';
 import {
   SafeAreaView,
   View,
-  TouchableOpacity,
+  TouchableOpacity
 } from 'react-native';
 
 import {Agenda} from 'react-native-calendars';
@@ -15,29 +15,63 @@ import AddEventModal from '../modals/AddEventModal';
 import SettingsModal from '../modals/SettingsModal';
 import CategoriesModal from '../modals/CategoriesModal';
 
-import { collection, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { collection, query, where, getDocs, doc } from "firebase/firestore";
 import { userId, db } from '../../firebaseConfig';
 
 const HomeScreen = () => {
 
+  const emptyDates = Object.create(null);
   const monthsLimit = 12;
+  const todayDate = new Date();
+
+  for(let i=0; i < 370; i++){
+    var newDate = new Date(todayDate.getTime() + (i * 86400000) );
+    const newDateFormatted =  newDate.getFullYear() + '-' + ('0' + (newDate.getMonth()+1)).slice(-2) + '-' + ('0' + newDate.getDate()).slice(-2);
+    emptyDates[newDateFormatted] = []
+  }
+
+  for(let i=0; i > -370; i--){
+    var newDate = new Date(todayDate.getTime() + (i * 86400000) );
+    const newDateFormatted =  newDate.getFullYear() + '-' + ('0' + (newDate.getMonth()+1)).slice(-2) + '-' + ('0' + newDate.getDate()).slice(-2);
+    emptyDates[newDateFormatted] = []
+  }
+
+
+  
   const [showAddEventModal, setShowAddEventModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
-  const [eventsToDisplay, setEventsToDisplay] = useState(Object.create(null));
-  eventsToDisplay["2022-12-28"] = []
-  setEventsToDisplay(existingValues => ({
-    ...existingValues,
-    ["2022-12-28"] : [...existingValues["2022-12-28"], {"category": "ll3HQ6o8Zrh6W5sZEAKP", "from": "2022-11-30T12:30:48.498Z", "location": "Location", "title": "Test", "to": "2022-11-30T12:40:00.000Z"}],
-  }
-  ))
+  const [eventsToDisplay, setEventsToDisplay] = useState(emptyDates);
 
- 
-  const renderItem = (item) => {
-    return(
-      <EventItem item={item}/>
-    )
-  }
+
+  
+
+  useEffect(() => {
+    setEventsToDisplay(emptyDates)
+    const fetchEvents = async () => {
+    const q = query(collection(db, "events"), where("user", "==", userId));
+          const querySnapshot = await getDocs(q);
+          querySnapshot.forEach((doc) => {
+            const eventsToDisplayCopy = {...eventsToDisplay}
+            const date = new Date ((doc.data().from.seconds) * 1000)
+            const formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth()+1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+            eventsToDisplayCopy[formattedDate] = [...eventsToDisplayCopy[formattedDate], {
+              title: doc.data().title,
+              start: doc.data().getHours+':'+doc.data().getMinutes,
+              end: doc.data().to.seconds,
+              type: doc.data().category,
+            },
+             ]
+            setEventsToDisplay(eventsToDisplayCopy)
+
+          
+            
+    });
+
+    }
+    fetchEvents();
+},[])
+
 
   return(
   <SafeAreaView style={{
@@ -71,7 +105,7 @@ const HomeScreen = () => {
 
     <Agenda
 
-        items={eventsToDisplay}
+        //items={{'2023-02-28': []}}
 
 
         theme={{
@@ -85,6 +119,12 @@ const HomeScreen = () => {
         pastScrollRange={monthsLimit}
         // Max amount of months allowed to scroll to the future. Default = 50
         futureScrollRange={monthsLimit}
+
+        items = {eventsToDisplay}
+
+        renderItem={(item) => {
+          return EventItem(item);
+        }}
     >
 
     </Agenda>
@@ -135,6 +175,14 @@ const HomeScreen = () => {
 
   </SafeAreaView>  
   )
+
+  
+
 }
+
+
+
+
+
 
 export default HomeScreen;

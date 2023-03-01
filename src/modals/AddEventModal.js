@@ -191,25 +191,7 @@ useEffect(() => {
             />
 
            
-            /*
-            <Text style={{
-                    fontSize: 20,
-                    fontWeight: '500',
-                    color: '#AD40AF',
-                    marginTop: 20,
-                    
-                }}>Repeat</Text>
-                <Picker
-                selectedValue={selectedRepeatValue}
-                style={{ height: 200, width: 400, marginTop : -75}}
-                onValueChange={(itemValue) => setSelectedRepeatValue(itemValue)}
-                >
-                    <Picker.Item label="Never" value="0" />
-                    <Picker.Item label="Every Day" value="1" />
-                    <Picker.Item label="Every Week" value="2" />
-                    <Picker.Item label="Every Month" value="3" />
-                    <Picker.Item label="Every Year" value="4" />
-                </Picker>
+          
                 
                 <Text style={{
                     fontSize: 20,
