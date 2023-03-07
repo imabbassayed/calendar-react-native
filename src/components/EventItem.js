@@ -2,9 +2,18 @@ import {StyleSheet, View, Text, TouchableOpacity, Linking} from 'react-native';
 import React from 'react';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { IconButton } from '../components/IconButton';
+
+
+import * as Clipboard from 'expo-clipboard';
+
 
 
 export default function EventItem (item) {
+
+  const copyToClipboard = async () => {
+    await Clipboard.setStringAsync(item.location);
+  };
 
   return (
     <View  style={styles.item} >
@@ -22,7 +31,7 @@ export default function EventItem (item) {
 
       <View>
 
-        <View >
+        <View style={{width:150}}>
           <Ionicons name="location-outline" size={15} color="#AD40AF" />
           <Text style={styles.itemLocationText}  onPress={() => {
              Linking.openURL('https://maps.google.com/?q='+item.location)
@@ -34,6 +43,14 @@ export default function EventItem (item) {
           <Text style={styles.itemTitleText}> {'Sport'}</Text>
         </View>
 
+      </View>
+
+      <View >
+        <IconButton
+                  icon = {<Ionicons name="copy-outline" size={15} color="#AD40AF" 
+                  onPress={copyToClipboard} />}
+        /> 
+        
       </View>
 
     </View>

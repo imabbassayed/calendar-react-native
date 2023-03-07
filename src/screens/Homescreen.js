@@ -18,6 +18,7 @@ import CategoriesModal from '../modals/CategoriesModal';
 import { collection, query, where, getDocs, doc } from "firebase/firestore";
 import { userId, db } from '../../firebaseConfig';
 
+
 const HomeScreen = () => {
 
   const emptyDates = Object.create(null);
@@ -45,16 +46,15 @@ const HomeScreen = () => {
 
   
 
+  useEffect(() => {
 
     const fetchEvents = async () => {
     const q = query(collection(db, "events"), where("user", "==", userId));
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
-            console.log(doc.data().title)
             const fromDate = new Date ((doc.data().from.seconds) * 1000)
             const formattedFromDate = fromDate.getFullYear() + '-' + ('0' + (fromDate.getMonth()+1)).slice(-2) + '-' + ('0' + fromDate.getDate()).slice(-2);
             const toDate =  new Date ((doc.data().to.seconds) * 1000)
-            console.log(formattedFromDate)
             eventsToDisplayCopy[formattedFromDate] = [...eventsToDisplayCopy[formattedFromDate], {
               title: doc.data().title,
               start: fromDate.toLocaleString('en-US', { hour: 'numeric',minute: 'numeric', hour12: true }),
@@ -63,11 +63,11 @@ const HomeScreen = () => {
               location: doc.data().location
             },
              ]
-            console.log(eventsToDisplayCopy)
     });
 
     }
     fetchEvents();
+},[])
 
 
   return(
@@ -82,21 +82,25 @@ const HomeScreen = () => {
     <View style={{
       flexDirection: 'row',
       borderBottomWidth: 0.5,
-      borderColor: '#AD40AF'}}>  
-                
-                <IconButton
-                  icon = {<Ionicons name="menu-outline" size={35} color="#AD40AF" />}
-                  title = ""
-                  style={{left:10}}
-                />
+      borderColor: '#AD40AF'}}> 
 
-                <IconButton
+               <IconButton
                   onPress={() => setShowSettingsModal(true) }
                   icon = {<Ionicons name="settings-outline" size={35} color="#AD40AF" />}
+                  title = ""
+                  style={{left:30}}
+
+
+                /> 
+                
+                <IconButton
+                  icon = {<Ionicons name="speedometer-outline" size={35} color="#AD40AF" />}
                   title = ""
                   style={{left:330}}
 
                 />
+
+               
 
     </View>  
 
