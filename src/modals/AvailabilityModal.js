@@ -1,17 +1,18 @@
-import React, {useState, useEffect} from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import React, {useState} from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import  Modal  from 'react-native-modal';
-import InputField from '../components/InputField';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import {Picker} from '@react-native-picker/picker';
 
-import { collection, query, where, getDocs, isGreaterThanOrEqualTo, isLessThanOrEqualTo } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { userId, db } from '../../firebaseConfig';
+
+import * as Clipboard from 'expo-clipboard';
+
 
 const AvailabilityModal = (props) => {
 
@@ -20,9 +21,21 @@ const [fromTime, setFromTime] = useState(new Date());
 const [toTime, setToTime] = useState(new Date());
 const [date, setDate] = useState(new Date());
 
+const setOverallDate = (date) => {
+    setFromTime(date)
+    setToTime(date)
+    setDate(date)
+}
+
+const copyToClipboard = async () => {
+    const text = "Hello there,\nBelow are the event details -> \nTiming: "+item.start+" - "+item.end+"\nTitle: "+item.title+"\nLocation: https://maps.google.com/?q="+item.location
+    await Clipboard.setStringAsync(text);
+  };
 
 
 const fetchAvailability = async () => {
+    const availability = []
+    availability.push([fromTime.getTime(),toTime.getTime()])
 
     date.setHours(0)
     date.setMinutes(0)
@@ -31,12 +44,32 @@ const fetchAvailability = async () => {
     end.setHours(23)
     end.setMinutes(59)
 
-    const q = query(collection(db, "events"), where("user", "==", userId), where("from", isGreaterThanOrEqualTo, date), where("from", isLessThanOrEqualTo, end)  );
+    const q = query(collection(db, "events"), where("user", "==", userId), where("from", ">=", date), where("from", "<=", end)  );
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.data())
+            const from = (doc.data().from.seconds) * 1000
+            const to = (doc.data().to.seconds) * 1000
+
+            availability.map( function(value, key){
+                if (from >= value[0] && to < value[1]){
+                    availability.push([to,value[1]])
+                    availability[key][1] = from
+            
+                }else if (from >= value[0] && to >= value[1]){
+                    availability[key][1] = from
+                }
+
+            }
+                
+              )
+            
     });
+
+
+    availability.map(value => {
+        console.log( new Date(value[0]) + new Date(value[1]) )
+      })
 
     }
 
@@ -108,7 +141,7 @@ const fetchAvailability = async () => {
                 marginBottom: 10,
                 width : 125,
             }} 
-            onChange = {(_,date) => setDate(date)}
+            onChange = {(_,date) => setOverallDate(date)}
             />
           
 
