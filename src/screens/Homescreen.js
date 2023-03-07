@@ -3,6 +3,7 @@ import {
   SafeAreaView,
   View,
   TouchableOpacity,
+  Text
 } from 'react-native';
 
 import {Agenda} from 'react-native-calendars';
@@ -14,6 +15,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AddEventModal from '../modals/AddEventModal';
 import SettingsModal from '../modals/SettingsModal';
 import CategoriesModal from '../modals/CategoriesModal';
+import AvailabilityModal from '../modals/AvailabilityModal';
+
+
 
 import { collection, query, where, getDocs, doc } from "firebase/firestore";
 import { userId, db } from '../../firebaseConfig';
@@ -40,6 +44,8 @@ const HomeScreen = () => {
   
   const [showAddEventModal, setShowAddEventModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [showAvailabilityModal, setShowAvailabilityModal] = useState(false);
+
 
   const eventsToDisplayCopy = {...emptyDates}
 
@@ -76,6 +82,8 @@ const HomeScreen = () => {
 
     <AddEventModal isVisible={showAddEventModal} close={() => setShowAddEventModal(false)} />
     <CategoriesModal isVisible={showSettingsModal} close={() => setShowSettingsModal(false)} />
+    <AvailabilityModal isVisible={showAvailabilityModal} close={() => setShowAvailabilityModal(false)} />
+
 
 
     <View style={{
@@ -125,6 +133,8 @@ const HomeScreen = () => {
         renderItem={(item) => {
           return EventItem(item);
         }}
+
+       
     >
 
     </Agenda>
@@ -145,6 +155,27 @@ const HomeScreen = () => {
     > 
         <View>
           <Ionicons name="add" size="45" color="white" />          
+        </View>
+    
+    </TouchableOpacity>
+
+
+    <TouchableOpacity
+                  onPress={() => setShowAvailabilityModal(true) }
+                  style={{
+                    position: 'absolute',
+                    width: 35,
+                    height: 35,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    right: 190,
+                    bottom: 100,
+                    borderRadius : 10,
+                    backgroundColor: '#AD40AF',
+                  }}             
+    > 
+        <View>
+          <Ionicons name="information-circle-outline" size="25" color="white" /> 
         </View>
     
     </TouchableOpacity>
