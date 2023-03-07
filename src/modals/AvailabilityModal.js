@@ -21,6 +21,9 @@ const [fromTime, setFromTime] = useState(new Date());
 const [toTime, setToTime] = useState(new Date());
 const [date, setDate] = useState(new Date());
 
+const availability = []
+
+
 const setOverallDate = (date) => {
     setFromTime(date)
     setToTime(date)
@@ -28,13 +31,18 @@ const setOverallDate = (date) => {
 }
 
 const copyToClipboard = async () => {
-    const text = "Hello there,\nBelow are the event details -> \nTiming: "+item.start+" - "+item.end+"\nTitle: "+item.title+"\nLocation: https://maps.google.com/?q="+item.location
+    let text = "Hello there,\nBelow is/are my availability for today   -> \n"
+    let count = 0
+    availability.map(value => {
+        count+=1
+        text += count+") "+(new Date(value[0])).toLocaleString('en-US', { hour: 'numeric',minute: 'numeric', hour12: true })+" to "+(new Date(value[1])).toLocaleString('en-US', { hour: 'numeric',minute: 'numeric', hour12: true })+"\n"
+      })
+    //console.log(text)
     await Clipboard.setStringAsync(text);
   };
 
 
 const fetchAvailability = async () => {
-    const availability = []
     availability.push([fromTime.getTime(),toTime.getTime()])
 
     date.setHours(0)
@@ -66,10 +74,10 @@ const fetchAvailability = async () => {
             
     });
 
+    copyToClipboard()
 
-    availability.map(value => {
-        console.log( new Date(value[0]) + new Date(value[1]) )
-      })
+
+    
 
     }
 
