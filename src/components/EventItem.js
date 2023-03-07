@@ -12,7 +12,7 @@ import * as Clipboard from 'expo-clipboard';
 export default function EventItem (item) {
 
   const copyToClipboard = async () => {
-    const text = "Hello there,\n Below are the event details -> \nTiming: "+item.start+" - "+item.end+"\nTitle: "+item.title+"\nLocation: "+item.location
+    const text = "Hello there,\nBelow are the event details -> \nTiming: "+item.start+" - "+item.end+"\nTitle: "+item.title+"\nLocation: https://maps.google.com/?q="+item.location
     await Clipboard.setStringAsync(text);
   };
 

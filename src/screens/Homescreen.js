@@ -18,7 +18,6 @@ import CategoriesModal from '../modals/CategoriesModal';
 import { collection, query, where, getDocs, doc } from "firebase/firestore";
 import { userId, db } from '../../firebaseConfig';
 
-
 const HomeScreen = () => {
 
   const emptyDates = Object.create(null);
