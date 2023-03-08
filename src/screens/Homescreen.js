@@ -164,18 +164,18 @@ const HomeScreen = () => {
                   onPress={() => setShowAvailabilityModal(true) }
                   style={{
                     position: 'absolute',
-                    width: 35,
+                    width: 45,
                     height: 35,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    right: 190,
+                    right: 185,
                     bottom: 100,
                     borderRadius : 10,
-                    backgroundColor: '#AD40AF',
+                    backgroundColor: 'grey',
                   }}             
     > 
         <View>
-          <Ionicons name="information-circle-outline" size="25" color="white" /> 
+          <Ionicons name="file-tray-stacked-outline" size="25" color="white" /> 
         </View>
     
     </TouchableOpacity>
