@@ -140,6 +140,7 @@ const HomeScreen = () => {
                 /> 
                 
                 <IconButton
+                  onPress={() => setShowDashboardModal(true) }
                   icon = {<Ionicons name="speedometer-outline" size={35} color="#AD40AF" />}
                   title = ""
                   style={{left:330}}
