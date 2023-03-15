@@ -16,6 +16,7 @@ import AddEventModal from '../modals/AddEventModal';
 import SettingsModal from '../modals/SettingsModal';
 import CategoriesModal from '../modals/CategoriesModal';
 import AvailabilityModal from '../modals/AvailabilityModal';
+import DashboardModal from '../modals/DashboardModal'
 
 
 
@@ -45,9 +46,12 @@ const HomeScreen = () => {
   const [showAddEventModal, setShowAddEventModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showAvailabilityModal, setShowAvailabilityModal] = useState(false);
+  const [showDashboardModal, setShowDashboardModal] = useState(false);
+
 
 
   const eventsToDisplayCopy = {...emptyDates}
+  const markedDates = {}
 
   const categories = {}
 
@@ -84,6 +88,17 @@ const HomeScreen = () => {
               location: doc.data().location
             },
              ]
+
+             if (eventsToDisplayCopy[formattedFromDate].length == 1){
+                markedDates[formattedFromDate] = {dots: []}
+             }
+             markedDates[formattedFromDate]["dots"] = [...markedDates[formattedFromDate]["dots"] , {color:'black'}]
+
+ 
+           
+
+
+
     });
 
     }
@@ -105,6 +120,8 @@ const HomeScreen = () => {
     <AddEventModal isVisible={showAddEventModal} close={() => setShowAddEventModal(false)} />
     <CategoriesModal isVisible={showSettingsModal} close={() => setShowSettingsModal(false)} />
     <AvailabilityModal isVisible={showAvailabilityModal} close={() => setShowAvailabilityModal(false)} />
+    <DashboardModal isVisible={showDashboardModal} close={() => setShowDashboardModal(false)} />
+
 
 
 
@@ -135,8 +152,8 @@ const HomeScreen = () => {
 
     <Agenda
 
-        //items={{'2023-02-28': []}}
-
+        markingType={'multi-dot'}
+        markedDates={markedDates}
 
         theme={{
           selectedDayBackgroundColor: '#AD40AF',
