@@ -41,7 +41,7 @@ export default function EventItem (item) {
 
         <View>
           <Ionicons name="file-tray-full-outline" size={15} color="#AD40AF" />
-          <Text style={styles.itemTitleText}> {'Sport'}</Text>
+          <Text style={styles.itemTitleText}> {item.category}</Text>
         </View>
 
       </View>

@@ -49,7 +49,23 @@ const HomeScreen = () => {
 
   const eventsToDisplayCopy = {...emptyDates}
 
+  const categories = {}
+
   
+
+
+  useEffect(() => {
+
+    const fetchCategories = async () => {
+      const q = query(collection(db, "categories"), where("user", "==", userId));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+            categories[doc.id] =  doc.data().name
+            
+      });
+    }
+      fetchCategories();
+  },[])
 
   useEffect(() => {
 
@@ -64,7 +80,7 @@ const HomeScreen = () => {
               title: doc.data().title,
               start: fromDate.toLocaleString('en-US', { hour: 'numeric',minute: 'numeric', hour12: true }),
               end: toDate.toLocaleString('en-US', { hour: 'numeric',minute: 'numeric', hour12: true }),
-              category: doc.data().category,
+              category: categories[doc.data().category],
               location: doc.data().location
             },
              ]
@@ -72,7 +88,13 @@ const HomeScreen = () => {
 
     }
     fetchEvents();
+
+   
 },[])
+
+
+
+
 
 
   return(
