@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import React,{useState} from 'react';
+import { View, Text, TouchableOpacity,StyleSheet } from 'react-native';
 
 import  Modal  from 'react-native-modal';
 
@@ -9,44 +9,33 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { userId, db } from '../../firebaseConfig';
 
 
+
+
 const DashboardModal = (props) => {
 
-const fetchStats = async (type) => {
-    availability.push([fromTime.getTime(),toTime.getTime()])
 
-    date.setHours(0)
-    date.setMinutes(0)
+const [selection, setSelection] = useState(1);
 
-    const end = new Date (date);
-    end.setHours(23)
-    end.setMinutes(59)
-
-    const q = query(collection(db, "events"), where("user", "==", userId), where("from", ">=", date), where("from", "<=", end)  );
-          const querySnapshot = await getDocs(q);
-          querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            const from = (doc.data().from.seconds) * 1000
-            const to = (doc.data().to.seconds) * 1000
-
-            availability.map( function(value, key){
-                if (from >= value[0] && to < value[1]){
-                    availability.push([to,value[1]])
-                    availability[key][1] = from
-            
-                }else if (from >= value[0] && to >= value[1]){
-                    availability[key][1] = from
-                }
-
-            }
-                
-              )
-            
-    });
-
-  
-
-    }
-
+const styles = StyleSheet.create({
+ 
+  btnGroup: {
+      flexDirection: 'row',
+      alignItems: "center",
+      borderWidth: 0.5,
+      borderRadius : 10,
+      borderColor: '#AD40AF'
+  },
+  btn: {
+      flex: 1,
+      margin: 5,
+   
+  },
+  btnText: {
+      textAlign: 'center',
+      paddingVertical: 10,
+      fontSize: 15
+  }
+});
 
 
   return(
@@ -95,7 +84,25 @@ const fetchStats = async (type) => {
     
                 </TouchableOpacity>
 
+
             </View>
+
+            <View style={styles.btnGroup}>
+                <TouchableOpacity style={[styles.btn, selection === 2 ? { backgroundColor: "#AD40AF" } : null]} onPress={() => setSelection(2)}>
+                    <Text style={[styles.btnText, selection === 2 ? { color: "white" } : null]}>This Month</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.btn, selection === 3 ? { backgroundColor: "#AD40AF" } : null]} onPress={() => setSelection(3)}>
+                    <Text style={[styles.btnText, selection === 3 ? { color: "white" } : null]}>This Week</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.btn, selection === 4 ? { backgroundColor: "#AD40AF" } : null]} onPress={() => setSelection(4)}>
+                    <Text style={[styles.btnText, selection === 4 ? { color: "white" } : null]}>Today</Text>
+                </TouchableOpacity>
+            </View>
+
+
+            
+
+  
 
 
         </View>
@@ -108,6 +115,8 @@ const fetchStats = async (type) => {
     </View>
     
   )
+
+  
 }
 
 export default DashboardModal;
