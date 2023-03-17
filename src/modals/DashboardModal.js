@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import { View, Text, TouchableOpacity,StyleSheet } from 'react-native';
 
 import  Modal  from 'react-native-modal';
@@ -8,13 +8,54 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { userId, db } from '../../firebaseConfig';
 
+import PieChart from 'react-native-expo-pie-chart';
+
+import { VictoryPie } from "victory-native";
+
+
 
 
 
 const DashboardModal = (props) => {
 
+const today = new Date()
+const thisweek = new Date()
+thisweek.setDate(thisweek.getDate() - 7)
+const thismonth = new Date()
+thismonth.setDate(thismonth.getDate() - 30)
 
-const [selection, setSelection] = useState(1);
+const thismonthdata = {}
+
+
+useEffect(() => {
+    const fetchEvents = async () => {
+    const q = query(collection(db, "events"), where("user", "==", userId), where("from", ">=", thismonth), where("from", "<=",today));
+          const querySnapshot = await getDocs(q);
+          querySnapshot.forEach((doc) => {
+          if (thismonthdata[doc.data().category] === undefined){
+            thismonthdata[doc.data().category] =  ( (doc.data().to.seconds * 1000) - (doc.data().from.seconds * 1000) ) 
+          }else{
+            thismonthdata[doc.data().category] = thismonthdata[doc.data().category] + ( (doc.data().to.seconds * 1000) - (doc.data().from.seconds * 1000) ) 
+          }
+
+        });
+    }
+  fetchEvents();
+
+},[])
+
+
+const [selection, setSelection] = useState(2);
+
+const data = [
+  { x: 1, y: 43 },
+  { x: 2, y: 12 },
+  { x: 3, y: 10 },
+  { x: 4, y: 15 }
+];
+
+
+
 
 const styles = StyleSheet.create({
  
@@ -28,6 +69,8 @@ const styles = StyleSheet.create({
   btn: {
       flex: 1,
       margin: 5,
+      borderRadius : 10,
+
    
   },
   btnText: {
@@ -100,11 +143,21 @@ const styles = StyleSheet.create({
             </View>
 
 
+          <View style={{padding:5}}>
+            <VictoryPie
+              data={data}
+              labelRadius={({ innerRadius }) => innerRadius + 15 }
+              innerRadius={115}
+              style={{ labels: { fill: "white", fontSize: 20, fontWeight: "bold"} }}
+              animate={{
+                duration: 2000
+              }}
+              padAngle={1}
+              colorScale={'qualitative'}
+
+            />
+          </View>
             
-
-  
-
-
         </View>
 
         
