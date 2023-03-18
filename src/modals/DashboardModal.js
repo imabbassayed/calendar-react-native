@@ -18,6 +18,9 @@ import { VictoryPie } from "victory-native";
 
 const DashboardModal = (props) => {
 
+const categories = {}
+
+
 const today = new Date()
 const thisweek = new Date()
 thisweek.setDate(thisweek.getDate() - 7)
@@ -25,34 +28,51 @@ const thismonth = new Date()
 thismonth.setDate(thismonth.getDate() - 30)
 
 const thismonthdata = {}
+const thismonthdataList = []
 
+const [thismonthdataList1,setthismonthdataList1] = useState([])
+
+
+
+useEffect(() => {
+
+  const fetchCategories = async () => {
+    const q = query(collection(db, "categories"), where("user", "==", userId));
+          const querySnapshot = await getDocs(q);
+          querySnapshot.forEach((doc) => {
+          categories[doc.id] =  doc.data().name
+          
+    });
+  }
+    fetchCategories();
+},[])
 
 useEffect(() => {
     const fetchEvents = async () => {
     const q = query(collection(db, "events"), where("user", "==", userId), where("from", ">=", thismonth), where("from", "<=",today));
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
+            
           if (thismonthdata[doc.data().category] === undefined){
-            thismonthdata[doc.data().category] =  ( (doc.data().to.seconds * 1000) - (doc.data().from.seconds * 1000) ) 
+            thismonthdata[categories[doc.data().category]] =  ( (doc.data().to.seconds * 1000) - (doc.data().from.seconds * 1000) ) 
           }else{
-            thismonthdata[doc.data().category] = thismonthdata[doc.data().category] + ( (doc.data().to.seconds * 1000) - (doc.data().from.seconds * 1000) ) 
+            thismonthdata[categories[doc.data().category]] = thismonthdata[categories[doc.data().category]] + ( (doc.data().to.seconds * 1000) - (doc.data().from.seconds * 1000) ) 
           }
-
         });
+        for(let index in thismonthdata){
+          //thismonthdataList.push({x : index, y : thismonthdata[index]})
+          setthismonthdataList1(thismonthdataList1 => [...thismonthdataList1, {x : index, y : thismonthdata[index]} ]);
+        }
+
     }
-  fetchEvents();
+    fetchEvents();
 
 },[])
 
 
 const [selection, setSelection] = useState(2);
 
-const data = [
-  { x: 1, y: 43 },
-  { x: 2, y: 12 },
-  { x: 3, y: 10 },
-  { x: 4, y: 15 }
-];
+const data = [{"x": "Fun", "y": 1800000}, {"x": "Sport", "y": 3600000}, {"x": "Work", "y": 3600000}];
 
 
 
@@ -143,12 +163,13 @@ const styles = StyleSheet.create({
             </View>
 
 
-          <View style={{padding:5}}>
+          <View>
             <VictoryPie
-              data={data}
-              labelRadius={({ innerRadius }) => innerRadius + 15 }
-              innerRadius={115}
-              style={{ labels: { fill: "white", fontSize: 20, fontWeight: "bold"} }}
+              data={thismonthdataList1}
+              labelRadius={({ innerRadius }) => innerRadius + 60 }
+              innerRadius={100}
+              radius={150}
+              style={{ labels: { fill: "#AD40AF", fontSize: 15, fontWeight: "bold"} }}
               animate={{
                 duration: 2000
               }}
