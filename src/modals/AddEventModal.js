@@ -26,6 +26,19 @@ const [categoriesToDisplay, setCategoriesToDisplay] = useState([]);
 
 
 
+
+ const suggestCategoriesFromApi = () => {
+  const url = 'http://localhost:5000/suggestCategory?from=0&to=96399&user='+userId;
+  fetch(url)
+    .then((resp) => resp.json())
+    .then((json) => console.log(json))
+    .catch((error) => console.error(error))
+  }
+
+suggestCategoriesFromApi()
+
+
+
 const validateEvent = () => {
 
     const titleInvalid  = title.length == 0;
@@ -128,35 +141,6 @@ useEffect(() => {
                 </TouchableOpacity>
 
             </View>
-            <InputField
-                label={'Title *'}
-                icon={
-                    <Ionicons
-                    name="calendar-outline"
-                    size={40}
-                    color="#666"
-                    style={{marginRight: 5}}
-                />
-                }
-                
-                inputType="Text"
-                text={text => setTitle(text)}
-            />
-
-            <InputField
-                label={'Location'}
-                icon={
-                    <Ionicons
-                    name="location-outline"
-                    size={40}
-                    color="#666"
-                    style={{marginRight: 5}}
-                />
-                }
-                
-                inputType="Text"
-                text={text => setLocation(text)}
-            />
 
             <Text style={{
                     fontSize: 20,
@@ -165,8 +149,8 @@ useEffect(() => {
                     marginTop: 20,
                     
                 }}>Date & Time</Text>
-             
-          <DateTimePicker
+
+            <DateTimePicker
             name='fromdatetime'
             mode='datetime'
             value={fromDatetime}
@@ -213,6 +197,39 @@ useEffect(() => {
               
               </Picker>
 
+            <InputField
+                label={'Title *'}
+                icon={
+                    <Ionicons
+                    name="calendar-outline"
+                    size={40}
+                    color="#666"
+                    style={{marginRight: 5}}
+                />
+                }
+                
+                inputType="Text"
+                text={text => setTitle(text)}
+            />
+
+            <InputField
+                label={'Location'}
+                icon={
+                    <Ionicons
+                    name="location-outline"
+                    size={40}
+                    color="#666"
+                    style={{marginRight: 5}}
+                />
+                }
+                
+                inputType="Text"
+                text={text => setLocation(text)}
+            />
+
+           
+             
+        
 
                 <View style={{flexDirection:'row'}}>
                 <TouchableOpacity
