@@ -67,8 +67,8 @@ useEffect(() => {
           }
         });
         for(let index in thismonthdata){
-          //thismonthdataList.push({x : index, y : thismonthdata[index]})
-          setThisMonthDataList(thisMonthDataList => [...thisMonthDataList, {x : index, y : thismonthdata[index]} ]);
+          //thismonthdataList.push({x : index+"\n"+(thismonthdata[index] / 3600000)+ "Hour(s)", y : thismonthdata[index]})
+          setThisMonthDataList(thisMonthDataList => [...thisMonthDataList, {x : index+"\n"+(thismonthdata[index] / 3600000)+ " Hour(s)", y : thismonthdata[index]} ]);
         }
 
         setDataToShow(thisMonthDataList)
@@ -92,8 +92,8 @@ useEffect(() => {
           }
         });
         for(let index in thisweekdata){
-          //thismonthdataList.push({x : index, y : thisweekdata[index]})
-          setThisWeekDataList(thisWeekDataList => [...thisWeekDataList, {x : index, y : thisweekdata[index]} ]);
+          //thismonthdataList.push({x : index+"\n"+(thismonthdata[index] / 3600000)+ "Hour(s)", y : thisweekdata[index]})
+          setThisWeekDataList(thisWeekDataList => [...thisWeekDataList, {x : index+"\n"+(thismonthdata[index] / 3600000)+ " Hour(s)", y : thisweekdata[index]} ]);
         }
   
     }
@@ -120,8 +120,8 @@ useEffect(() => {
           }
         });
         for(let index in todaydata){
-          //thismonthdataList.push({x : index, y : todaydata[index]})
-          setTodayDataList(todayDataList => [...todayDataList, {x : index, y : todaydata[index]} ]);
+          //thismonthdataList.push({x : index+"\n"+(thismonthdata[index] / 3600000)+ "Hour(s)", y : todaydata[index]})
+          setTodayDataList(todayDataList => [...todayDataList, {x : index+"\n"+(thismonthdata[index] / 3600000)+ " Hour(s)", y : todaydata[index]} ]);
         }
   
     }
@@ -227,11 +227,11 @@ const styles = StyleSheet.create({
             <VictoryPie
               data={dataToShow}
               labelRadius={({ innerRadius }) => innerRadius + 60 }
-              innerRadius={100}
-              radius={150}
+              innerRadius={85}
+              radius={135}
               style={{ labels: { fill: "#AD40AF", fontSize: 15, fontWeight: "bold"} }}
               animate={{
-                duration: 2000
+                duration: 75
               }}
               padAngle={1}
               colorScale={'qualitative'}
