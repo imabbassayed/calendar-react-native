@@ -21,6 +21,9 @@ const DashboardModal = (props) => {
 const categories = {}
 
 
+const [colorScale,setColorScale] = useState("qualitative")
+
+
 const today = new Date()
 const thisweek = new Date()
 thisweek.setDate(thisweek.getDate() - 7)
@@ -154,7 +157,12 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       paddingVertical: 10,
       fontSize: 15
-  }
+  },
+  btnText1: {
+    textAlign: 'center',
+    paddingVertical: 10,
+    fontSize: 10
+}
 });
 
 
@@ -234,10 +242,23 @@ const styles = StyleSheet.create({
                 duration: 75
               }}
               padAngle={1}
-              colorScale={'qualitative'}
+              colorScale={colorScale}
 
             />
           </View>
+
+
+          <View style={{...styles.btnGroup,width:170}}>
+                <TouchableOpacity style={[styles.btn, colorScale === 'grayscale' ? { backgroundColor: "#AD40AF" } : null]} onPress={() => {
+                setColorScale('grayscale')}}>
+                    <Text style={[styles.btnText1, colorScale === 'grayscale' ? { color: "white" } : null]}>Greyscale</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.btn, colorScale === 'qualitative' ? { backgroundColor: "#AD40AF" } : null]} onPress={() => {
+                setColorScale('qualitative')}}>
+                    <Text style={[styles.btnText1, colorScale === 'qualitative' ? { color: "white" } : null]}>Color</Text>
+                </TouchableOpacity>
+            </View>
+
             
         </View>
 
