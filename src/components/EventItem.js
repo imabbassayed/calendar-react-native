@@ -48,9 +48,20 @@ export default function EventItem (item) {
 
       <View >
         <IconButton
-                  icon = {<Ionicons name="copy-outline" size={15} color="#AD40AF" 
+                  icon = {<Ionicons name="copy-outline" size={20} color="#AD40AF" 
                   onPress={copyToClipboard} />}
         /> 
+
+    <IconButton
+                  icon = {<Ionicons name="create-outline" size={20} color="black" 
+                  />}
+        /> 
+
+    <IconButton
+                  icon = {<Ionicons name="trash-outline" size={20} color="#AD40AF" 
+                  />}
+        /> 
+
         
       </View>
 
