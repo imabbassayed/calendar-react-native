@@ -13,7 +13,6 @@ import EventItem from '../components/EventItem'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import AddEventModal from '../modals/AddEventModal';
-import SettingsModal from '../modals/SettingsModal';
 import CategoriesModal from '../modals/CategoriesModal';
 import AvailabilityModal from '../modals/AvailabilityModal';
 import DashboardModal from '../modals/DashboardModal'

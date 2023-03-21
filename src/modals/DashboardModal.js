@@ -1,3 +1,4 @@
+// Modal that display user's hours spend on a certain category within the last month, last week and today timeframes.
 import React,{useState, useEffect} from 'react';
 import { View, Text, TouchableOpacity,StyleSheet } from 'react-native';
 
