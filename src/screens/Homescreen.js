@@ -1,3 +1,4 @@
+//Landing page after the user sucessfully signs in.
 import React,{useState, useEffect} from 'react';
 import {
   SafeAreaView,
@@ -24,6 +25,9 @@ import { userId, db } from '../../firebaseConfig';
 
 const HomeScreen = () => {
 
+
+  // Creating a empty dictionary wuth last year and the coming year dates as key (365 days)
+  // This is because the React Native Calnder Agenda requires empty lists for days that needs to be displayed as empty.
   const emptyDates = Object.create(null);
   const monthsLimit = 12;
   const todayDate = new Date();
@@ -41,7 +45,8 @@ const HomeScreen = () => {
   }
 
 
-  
+  // Usestate varibles that store the state of the modal.
+  // If true the modal will be shown and if false the modal will be hidden
   const [showAddEventModal, setShowAddEventModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showAvailabilityModal, setShowAvailabilityModal] = useState(false);
@@ -56,7 +61,7 @@ const HomeScreen = () => {
 
   
 
-
+// First the categories with their name is fetched as category id is stored in the event collection only. Hence it is needed to get the category name based on id.
   useEffect(() => {
 
     const fetchCategories = async () => {
@@ -70,6 +75,7 @@ const HomeScreen = () => {
       fetchCategories();
   },[])
 
+// All the events for the previous and coming 365 days are fetched and added to the empty dictionairy created above (eventsToDisplayCopy)
   useEffect(() => {
 
     const fetchEvents = async () => {
@@ -87,7 +93,8 @@ const HomeScreen = () => {
               location: doc.data().location
             },
              ]
-
+             // For each day number of dots are displated before fully opening that day to quickly portray how busy that day is to the user
+             // Hence a marked date variable is created that stores the corresponding black dots to the number of events that day 
              if (eventsToDisplayCopy[formattedFromDate].length == 1){
                 markedDates[formattedFromDate] = {dots: []}
              }

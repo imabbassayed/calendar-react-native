@@ -1,3 +1,4 @@
+// Login Screen
 import React, {useState} from 'react';
 import {
   SafeAreaView,
@@ -29,7 +30,7 @@ const LoginScreen = ({navigation}) => {
   const [password, setPassword] = useState("");
  
 
-
+  // Function to validate user input and make sure the required fields are not empty and is filled with correct data type e.g. string 
   const validateSignIn = () => {
 
 
@@ -55,11 +56,12 @@ const LoginScreen = ({navigation}) => {
 
     logInUser(email, password)
   }
-
+  // Function that uses Firebase signInWithEmailAndPassword functioanlity to validate entered user name and password and if valid create a session and move the home screen.
   const logInUser = async (email, password) => {
 
       signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        // Navigate to home screen
         navigation.navigate("Home")
       })
       .catch((error) => {
@@ -70,7 +72,6 @@ const LoginScreen = ({navigation}) => {
               {text: "OK" }
             ]
           );
-          console.log(error)
           return;
         
         

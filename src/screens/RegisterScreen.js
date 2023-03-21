@@ -1,3 +1,4 @@
+// Register Screen
 import React, {useState} from 'react';
 import {
   SafeAreaView,
@@ -27,12 +28,14 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 const RegisterScreen = ({navigation}) => {
 
+  // Usestate varibales to store inputs given by the user
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPasword, setConfirmPassword] = useState("");
 
-
+// Function to validate user input and make sure the required fields are not empty and is filled with correct data type e.g. integer 
   const validateSignUp = () => {
     const nameInvalid = name.length == 0;
  
@@ -46,7 +49,7 @@ const RegisterScreen = ({navigation}) => {
       );
       return;
     }
-    
+    // Making sure email is valid 
 
     const emailInvalid = validate({emailAddress:email}, constraints);
 
@@ -57,7 +60,7 @@ const RegisterScreen = ({navigation}) => {
         );
         return;
     }
-
+    // Making sure Password is valid 
     const confirmPasswordInvalid = password != confirmPasword;
 
     if(confirmPasswordInvalid){
@@ -82,6 +85,9 @@ const RegisterScreen = ({navigation}) => {
     insertUser(email, password)
   }
 
+
+    // Function that uses Firebase createUserWithEmailAndPassword functioanlity to register entered user name and password and if succesfull create a session and move the home screen.
+
 const insertUser = async (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -89,6 +95,7 @@ const insertUser = async (email, password) => {
         updateProfile(user,{
           displayName: name,
         }).then(function() {
+          // Navigate to home screen
           navigation.navigate("Home");
         }, function(error) {
           Alert.alert(
