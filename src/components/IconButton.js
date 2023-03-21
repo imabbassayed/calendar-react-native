@@ -1,3 +1,4 @@
+// A reusuable custom button that encapsulates an icon whitin it
 import {Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 

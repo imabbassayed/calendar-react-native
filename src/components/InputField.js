@@ -1,3 +1,5 @@
+// A reusuable input field that encapsulates an icon whitin it on the left hand side.
+
 import React from 'react';
 import {View, Text, TouchableOpacity, TextInput} from 'react-native';
 

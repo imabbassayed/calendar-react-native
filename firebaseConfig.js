@@ -1,15 +1,12 @@
-// Import the functions you need from the SDKs you need
+// Firebase Connection
 import { initializeApp } from "firebase/app";
-import {getAuth, onAuthStateChanged} from "firebase/auth"
+import {getAuth} from "firebase/auth"
 import { getFirestore } from "firebase/firestore";
 
+// Importing the Firebase connection credentials from variables stored in the .env
+// This is a more secure method than directly pasting the credentials directly
 import {apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId, measurementId} from '@env';
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: apiKey,
   authDomain: authDomain,
@@ -23,7 +20,7 @@ const firebaseConfig = {
 
 
 
-// Initialize Firebase
+// Initialize Firebase connection
 export const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);

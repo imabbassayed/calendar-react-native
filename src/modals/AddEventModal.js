@@ -25,17 +25,39 @@ const [selectedCategoryValue, setSelectedCategoryValue] = useState(0);
 const [categoriesToDisplay, setCategoriesToDisplay] = useState([]);
 
 
+const suggestCategoriesFromApi = () => {
 
+  const fromTimeMidnight = new Date(fromDatetime);
+  const fromTime = (fromDatetime - fromTimeMidnight.setHours(0,0,0,0)) / 1000;
 
- const suggestCategoriesFromApi = () => {
-  const url = 'http://localhost:5000/suggestCategory?from=0&to=96399&user='+userId;
+  const toTimeMidnight = new Date(toDatetime);
+  const toTime = (toDatetime - toTimeMidnight.setHours(0,0,0,0)) / 1000;
+
+  const url = 'http://localhost:5000/suggestCategory?from='+fromTime+'&to='+toTime+'&user='+userId;
   fetch(url)
     .then((resp) => resp.json())
-    .then((json) => console.log(json))
+    .then((json) => setSelectedCategoryValue(json))
     .catch((error) => console.error(error))
-  }
 
-suggestCategoriesFromApi()
+}
+
+
+const suggestEventFromApi = () => {
+
+  const fromTimeMidnight = new Date(fromDatetime);
+  const fromTime = (fromDatetime - fromTimeMidnight.setHours(0,0,0,0)) / 1000;
+
+  const toTimeMidnight = new Date(toDatetime);
+  const toTime = (toDatetime - toTimeMidnight.setHours(0,0,0,0)) / 1000;
+
+  const url = 'http://localhost:5000/suggestEvent?from='+fromTime+'&to='+toTime+'&user='+userId+'&category='+selectedCategoryValue;
+  fetch(url)
+    .then((resp) => resp.json())
+    .then((json) => {setTitle(json)})
+    .catch((error) => console.error(error))
+
+}
+
 
 
 
@@ -159,7 +181,7 @@ useEffect(() => {
                 marginBottom: 10,
                 width : 200
             }} 
-            onChange = {(_,date) => setFromDatetime(date)}
+            onChange = {(_,date) => {setFromDatetime(date), suggestCategoriesFromApi()}}
             />
           
           <DateTimePicker
@@ -171,7 +193,7 @@ useEffect(() => {
                 width : 200
             }} 
             value = {toDatetime}
-            onChange = {(_,date) => setToDatetime(date)}
+            onChange = {(_,date) => {setToDatetime(date), suggestCategoriesFromApi()}}
             />
 
            
@@ -187,7 +209,7 @@ useEffect(() => {
                 <Picker
                 selectedValue={selectedCategoryValue}
                 style={{ height: 200, width: 400, marginTop : -75}}
-                onValueChange={(itemValue) => setSelectedCategoryValue(itemValue)}
+                onValueChange={(itemValue) => {setSelectedCategoryValue(itemValue), suggestEventFromApi()}}
                 >
 
              {

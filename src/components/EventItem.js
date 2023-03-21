@@ -1,3 +1,4 @@
+// A reusuable element that used when displaying events in the calendar
 import {StyleSheet, View, Text, TouchableOpacity, Linking} from 'react-native';
 import React from 'react';
 
@@ -11,6 +12,7 @@ import * as Clipboard from 'expo-clipboard';
 
 export default function EventItem (item) {
 
+  // Function to copy event details to clipboard
   const copyToClipboard = async () => {
     const text = "Hello there,\nBelow are the event details -> \nTiming: "+item.start+" - "+item.end+"\nTitle: "+item.title+"\nLocation: https://maps.google.com/?q="+item.location
     await Clipboard.setStringAsync(text);
