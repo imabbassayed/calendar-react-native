@@ -8,8 +8,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { userId, db } from '../../firebaseConfig';
 
-import PieChart from 'react-native-expo-pie-chart';
-
 import { VictoryPie } from "victory-native";
 
 
@@ -20,7 +18,7 @@ const DashboardModal = (props) => {
 
 const categories = {}
 
-
+// Usestate varibale that changes Victory pie chart colorscale configuration 
 const [colorScale,setColorScale] = useState("qualitative")
 
 
@@ -30,6 +28,7 @@ thisweek.setDate(thisweek.getDate() - 7)
 const thismonth = new Date()
 thismonth.setDate(thismonth.getDate() - 30)
 
+// Varibles that store the categories with the amount of time spent in hours for this month, this ween and today time period.
 const thismonthdata = {}
 const [thisMonthDataList,setThisMonthDataList] = useState([])
 
@@ -43,7 +42,7 @@ const [todayDataList,setTodayDataList] = useState([])
 
 
 
-
+// First the categories with their name is fetched as category id is stored in the event collection only. Hence it is needed to get the category name based on id.
 useEffect(() => {
 
   const fetchCategories = async () => {
@@ -57,12 +56,14 @@ useEffect(() => {
     fetchCategories();
 },[])
 
+// Fetching all events during the month and categorising them based on their categories and adding the time spend.
 useEffect(() => {
   setThisMonthDataList([])
     const fetchEventsThisMonth = async () => {
     const q = query(collection(db, "events"), where("user", "==", userId), where("from", ">=", thismonth), where("from", "<=",today));
           const querySnapshot = await getDocs(q);
-          querySnapshot.forEach((doc) => {            
+          querySnapshot.forEach((doc) => {
+          // Storing number of seconds spent in the event fetched and adding it to the  total number of seconds spent the category that the event is categorised.            
           if (thismonthdata[doc.data().category] === undefined){
             thismonthdata[categories[doc.data().category]] =  ( (doc.data().to.seconds * 1000) - (doc.data().from.seconds * 1000) ) 
           }else{
@@ -81,13 +82,15 @@ useEffect(() => {
 
 },[])
 
+// Fetching all events during the week and categorising them based on their categories and adding the time spend.
+
 useEffect(() => {
   setThisWeekDataList([])
   const fetchEventsThisWeek = async () => {
     const q = query(collection(db, "events"), where("user", "==", userId), where("from", ">=", thisweek), where("from", "<=",today));
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
-            
+            // Storing number of seconds spent in the event fetched and adding it to the  total number of seconds spent the category that the event is categorised.            
           if (thisweekdata[doc.data().category] === undefined){
             thisweekdata[categories[doc.data().category]] =  ( (doc.data().to.seconds * 1000) - (doc.data().from.seconds * 1000) ) 
           }else{
@@ -104,6 +107,8 @@ useEffect(() => {
 },[])
 
 
+// Fetching all events during the day and categorising them based on their categories and adding the time spend.
+
 useEffect(() => {
   setTodayDataList([])
   const todayto = new Date();
@@ -115,7 +120,7 @@ useEffect(() => {
     const q = query(collection(db, "events"), where("user", "==", userId), where("from", ">=", today), where("from", "<=",todayto));
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
-            
+          // Storing number of seconds spent in the event fetched and adding it to the  total number of seconds spent the category that the event is categorised.            
           if (todaydata[doc.data().category] === undefined){
             todaydata[categories[doc.data().category]] =  ( (doc.data().to.seconds * 1000) - (doc.data().from.seconds * 1000) ) 
           }else{

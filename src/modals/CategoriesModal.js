@@ -1,3 +1,5 @@
+// Modal respobsible for viewing, deleting and adding categories.
+
 import React, {useState, useEffect} from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, ScrollView, SafeAreaView } from 'react-native';
 
@@ -16,13 +18,14 @@ const CategoriesModal = (props) => {
   const [categoriesToDisplay, setCategoriesToDisplay] = useState([]);
 
 
-  
+  // Function that uses deleteDoc functionality provided by Firebase to delete the category from firebase store
   const deleteCategory = async (categoryToDelete, indexOfCategoryToDelete) => {
 
     try {
       await deleteDoc(doc(db, "categories", categoryToDelete));
       var tempArray = [...categoriesToDisplay]
       tempArray.splice(indexOfCategoryToDelete, 1);
+      // After succesful deletation update the categoryToDisplay so it is responsively removed from user screen as well
       setCategoriesToDisplay(tempArray);
       
     } catch (e) {
@@ -35,6 +38,8 @@ const CategoriesModal = (props) => {
 
   }
   
+
+  // Function to validate user input and make sure the required fields are not empty and is filled with correct data type e.g. string 
   const validateCategory = () => {
 
     const categoryInvalid  = category.length == 0;
@@ -51,6 +56,8 @@ const CategoriesModal = (props) => {
   }
 
 
+
+  // Function that uses addDoc functionality provided by Firebase to add the category into the Firestore Database.
   const insertCategory =  async () => {
 
     try {
@@ -70,7 +77,7 @@ const CategoriesModal = (props) => {
 
   }
 
-
+// Function that returns users created categories to display to the user.
   useEffect(() => {
       setCategoriesToDisplay([])
       const fetchCategories = async () => {

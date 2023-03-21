@@ -1,3 +1,4 @@
+// Modal respobsible for adding events
 import React, {useState, useEffect} from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 
@@ -15,7 +16,7 @@ import { userId, db } from '../../firebaseConfig';
 
 const AddEventModal = (props) => {
 
-
+// Usestate varibales to store inputs given by the user
 const [title, setTitle] = useState("");
 const [location, setLocation] = useState("");
 const [fromDatetime, setFromDatetime] = useState(new Date());
@@ -24,7 +25,8 @@ const [selectedRepeatValue, setSelectedRepeatValue] = useState(0);
 const [selectedCategoryValue, setSelectedCategoryValue] = useState(0);
 const [categoriesToDisplay, setCategoriesToDisplay] = useState([]);
 
-
+// Function that connects to the python code located in smarteventsuggestion through RestFul API.
+// This function returns the category suggested by the  Ai implemented in the backend.
 const suggestCategoriesFromApi = () => {
 
   const fromTimeMidnight = new Date(fromDatetime);
@@ -42,6 +44,9 @@ const suggestCategoriesFromApi = () => {
 }
 
 
+
+// Function that connects to the python code located in smarteventsuggestion through RestFul API.
+// This function returns the event suggested by the  Ai implemented in the backend.
 const suggestEventFromApi = () => {
 
   const fromTimeMidnight = new Date(fromDatetime);
@@ -60,7 +65,7 @@ const suggestEventFromApi = () => {
 
 
 
-
+// Function to validate user input and make sure the required fields are not empty and is filled with correct data type e.g. integer 
 const validateEvent = () => {
 
     const titleInvalid  = title.length == 0;
@@ -76,6 +81,9 @@ const validateEvent = () => {
     addEvent();
     
 }
+
+
+// Function that uses addDoc functionality provided by Firebase to add the event into the Firestore Database.
 
 const addEvent =  async () => {
     try {
@@ -100,6 +108,7 @@ const addEvent =  async () => {
 
   } 
 
+// Function that returns users created categories for the user to categorize their events.
 useEffect(() => {
     setCategoriesToDisplay([])
     const fetchCategories = async () => {

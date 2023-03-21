@@ -1,3 +1,4 @@
+// Modal responsible to inform the user of their availibality during the period of time entered.
 import React, {useState} from 'react';
 import { View, Text, TouchableOpacity, TextInput, Alert } from 'react-native';
 
@@ -16,7 +17,7 @@ import * as Clipboard from 'expo-clipboard';
 
 const AvailabilityModal = (props) => {
 
-
+// Usestate varibales to store inputs given by the user
 const [fromTime, setFromTime] = useState(new Date());
 const [toTime, setToTime] = useState(new Date());
 const [date, setDate] = useState(new Date());
@@ -25,13 +26,15 @@ const [duration, setDuration] = useState(0);
 
 const availability = []
 
-
+// Function that sets the overall date for all varibles as the date availabily is within the same date but different timings
 const setOverallDate = (date) => {
     setFromTime(date)
     setToTime(date)
     setDate(date)
 }
 
+
+// Function that converts the user's availabily during the time period entered to text and automatically copies to clipboard
 const copyToClipboard = async () => {
     let text = "Hello there,\nBelow is/are my availability for today   -> \n"
     let count = 0
@@ -39,11 +42,12 @@ const copyToClipboard = async () => {
         count+=1
         text += count+") "+(new Date(value[0])).toLocaleString('en-US', { hour: 'numeric',minute: 'numeric', hour12: true })+" to "+(new Date(value[1])).toLocaleString('en-US', { hour: 'numeric',minute: 'numeric', hour12: true })+"\n"
       })
-    //console.log(text)
     await Clipboard.setStringAsync(text);
   };
 
 
+  // Function that uses addDoc functionality provided by Firebase to add the availabily time of the user into the database and generate an id.
+  // The auto generated id by Firebase is then used as token id which will be accessed through web to automatically book the free time by the client.
   const generateSlotBookingToken = async () => {
 
     const availabilityFLattened = []
@@ -59,7 +63,7 @@ const copyToClipboard = async () => {
           availability : availabilityFLattened,
           user: userId,
         });
-
+        // Insert to the database and then fetfh the generated token id and then copy it to clipboard
         await Clipboard.setStringAsync('http://localhost:3000/index.php?id='+docRef.id);
         
       } catch (e) {
@@ -73,7 +77,7 @@ const copyToClipboard = async () => {
 
   };
 
-
+// Function that queries the database to find the available times fo the user.
 const fetchAvailability = async (type) => {
     availability.push([fromTime.getTime(),toTime.getTime()])
 
@@ -83,11 +87,10 @@ const fetchAvailability = async (type) => {
     const end = new Date (date);
     end.setHours(23)
     end.setMinutes(59)
-
+    // Queries the databases whitin the range given by the user and if available adds it to the availibilty list.
     const q = query(collection(db, "events"), where("user", "==", userId), where("from", ">=", date), where("from", "<=", end)  );
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
             const from = (doc.data().from.seconds) * 1000
             const to = (doc.data().to.seconds) * 1000
 
@@ -106,6 +109,7 @@ const fetchAvailability = async (type) => {
             
     });
 
+    // Validating that the avaialble period match required duration given by the user if not pop it from the list.
     availability.map( function(value, key){
       if (value[1] - value[0] < duration){
           delete availability[key]
