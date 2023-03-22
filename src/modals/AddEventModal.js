@@ -58,7 +58,7 @@ const suggestEventFromApi = () => {
   const url = 'http://localhost:5000/suggestEvent?from='+fromTime+'&to='+toTime+'&user='+userId+'&category='+selectedCategoryValue;
   fetch(url)
     .then((resp) => resp.json())
-    .then((json) => {setTitle(json)})
+    .then((json) => {console.log(json),setTitle(json)})
     .catch((error) => console.error(error))
 
 }
@@ -241,6 +241,7 @@ useEffect(() => {
                 
                 inputType="Text"
                 text={text => setTitle(text)}
+                value={title}
             />
 
             <InputField

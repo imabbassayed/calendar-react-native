@@ -11,7 +11,8 @@ export default function InputField({
   fieldButtonLabel,
   fieldButtonFunction,
   text,
-  autoCapitalize
+  autoCapitalize,
+  value
 }) {
   return (
     <View
@@ -31,8 +32,6 @@ export default function InputField({
           secureTextEntry={true}
           onChangeText = {text}
           autoCapitalize = {false}
-
-
         />
       ) : (
         <TextInput
@@ -41,6 +40,7 @@ export default function InputField({
           style={{flex: 1, paddingVertical: 0}}
           onChangeText = {text}
           autoCapitalize = {autoCapitalize}
+          value={value}
 
         />
       )}

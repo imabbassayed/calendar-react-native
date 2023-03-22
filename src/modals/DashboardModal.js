@@ -9,7 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { userId, db } from '../../firebaseConfig';
 
-import { VictoryPie } from "victory-native";
+//import { VictoryPie } from "victory-native";
 
 
 
@@ -238,19 +238,7 @@ const styles = StyleSheet.create({
 
 
           <View>
-            <VictoryPie
-              data={dataToShow}
-              labelRadius={({ innerRadius }) => innerRadius + 60 }
-              innerRadius={85}
-              radius={135}
-              style={{ labels: { fill: "#AD40AF", fontSize: 15, fontWeight: "bold"} }}
-              animate={{
-                duration: 75
-              }}
-              padAngle={1}
-              colorScale={colorScale}
-
-            />
+          
           </View>
 
 
