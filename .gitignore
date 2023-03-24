@@ -1,5 +1,7 @@
 node_modules/
 .DS_Store
 .env
-index.php
-smarteventsuggestion/
+googlecalendarintegration/credentialsFirebase.json
+googlecalendarintegration/token.json
+googlecalendarintegration/credentialsGoogleApi.json
+smarteventsuggestion/credentials.json

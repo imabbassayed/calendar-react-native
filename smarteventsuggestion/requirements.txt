@@ -1,0 +1,2 @@
+flask=2.2.3
+firebase_admin=6.1.0

@@ -1,4 +1,4 @@
-// Modal respobsible for viewing, deleting and adding categories.
+// Modal respobsible settings such as  viewing, deleting and adding categories or syncing with google calendar
 
 import React, {useState, useEffect} from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, ScrollView, SafeAreaView } from 'react-native';
@@ -9,9 +9,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { collection, addDoc, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { userId, db } from '../../firebaseConfig';
+import GoogleSVG from '../assets/svgs/GoogleSVG';
 
 
-const CategoriesModal = (props) => {
+
+const SettingsModal = (props) => {
 
 
   const [category, setCategory] = useState("");
@@ -93,6 +95,23 @@ const CategoriesModal = (props) => {
     fetchCategories();
   },[])
 
+
+  // Function that connects to the python code located in googlecalendarintegration through RestFul API.
+// This function syns google Calendar Events into the Firebase Firestore database.
+const syncWithGoogleCalendar = () => {
+
+  const url = 'http://localhost:5000/syncGoogleEvents';
+  fetch(url)
+    .then((resp) => resp.json())
+    .then((json) => { Alert.alert(
+      "Sync Succesfull !",
+      "Successfully synced with Google Calendar",   
+    );
+  })
+    .catch((error) => console.error(error))
+
+}
+
   return(
     <SafeAreaView >
         <Modal
@@ -124,7 +143,7 @@ const CategoriesModal = (props) => {
                 fontWeight: '500',
                 color: '#AD40AF',
                 left: 20
-            }}>Categories</Text>
+            }}>Settings</Text>
 
               <TouchableOpacity
                 onPress={props.close}
@@ -255,6 +274,35 @@ const CategoriesModal = (props) => {
                 
               
               ))}
+
+          <TouchableOpacity
+              onPress={() => {syncWithGoogleCalendar()}}
+              style={{
+                borderColor: '#AD40AF',
+                borderWidth: 1,
+                borderRadius: 10,
+                paddingHorizontal: 30,
+                paddingVertical: 10,
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'center',
+                marginTop:10,
+
+                
+              }}>
+              <Text 
+              style={{fontWeight: '800',
+                      textAlign: 'center', 
+                      paddingRight: 10,
+                      paddingTop: 2
+              }}>
+              Sync with Google Calendar   
+        
+              </Text>
+              <GoogleSVG/>
+
+
+          </TouchableOpacity>
           </ScrollView>
 
               
@@ -270,4 +318,4 @@ const CategoriesModal = (props) => {
   )
 }
 
-export default CategoriesModal;
+export default SettingsModal;

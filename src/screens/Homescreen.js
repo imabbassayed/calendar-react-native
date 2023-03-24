@@ -14,9 +14,9 @@ import EventItem from '../components/EventItem'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import AddEventModal from '../modals/AddEventModal';
-import CategoriesModal from '../modals/CategoriesModal';
+import DashboardModal from '../modals/DashboardModal';
 import AvailabilityModal from '../modals/AvailabilityModal';
-import DashboardModal from '../modals/DashboardModal'
+import SettingsModal from '../modals/SettingsModal'
 
 
 
@@ -124,7 +124,7 @@ const HomeScreen = () => {
     backgroundColor: '#FFF'}}>
 
     <AddEventModal isVisible={showAddEventModal} close={() => setShowAddEventModal(false)} />
-    <CategoriesModal isVisible={showSettingsModal} close={() => setShowSettingsModal(false)} />
+    <SettingsModal isVisible={showSettingsModal} close={() => setShowSettingsModal(false)} />
     <AvailabilityModal isVisible={showAvailabilityModal} close={() => setShowAvailabilityModal(false)} />
     <DashboardModal isVisible={showDashboardModal} close={() => setShowDashboardModal(false)} />
 

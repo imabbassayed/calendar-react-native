@@ -1,0 +1,108 @@
+<style>
+body{
+  background-color:#f3f2f4;
+  margin:0;
+  padding:0;
+}
+.curvedheader{
+  width:105%;
+  height:50%;
+  left:-3%;
+  position:absolute;
+  background-image: linear-gradient(#fa00ff, #AD40AF);
+  border-top-left-radius:10px;
+  border-top-right-radius:10px;
+  border-bottom-left-radius: 50% 35%;
+  border-bottom-right-radius: 50% 35%;
+}
+.content{
+  width:150vh;
+  height:77vh;
+  background-color:white;
+  border-radius:10px;
+  position:relative;
+  top:70%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  margin-top:3%;
+  padding: 1%;
+
+}
+.header{
+    font-weight: 700;
+    color:white;
+    font-family: Gordita,sans-serif;
+    text-align: center;
+    margin-top:2%;
+}
+.title{
+    font-size: 48px;
+    letter-spacing:12
+
+}
+.subtitle{
+    font-size: 15px;
+    letter-spacing:3
+
+}.parenttableholder{
+    text-align:center;
+    padding:1%;
+}.predictionemojies{
+    text-align:center;
+
+}.predictionnumbers{
+    text-align:center;
+    font-size:40px;
+    font-weight:bold;
+}
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    border: 2px solid #AD40AF;
+
+}
+
+.styled-table thead tr {
+    color: black;
+    text-align: left;
+    border: 1px solid black;
+}
+
+.styled-table td {
+    padding: 17px 19px;
+    text-align:center;
+    font-weight:bold;
+    font-size:25px
+
+}
+.styled-table th {
+    padding: 17px 19px;
+    text-align:center;
+    font-weight:bold;
+    font-size:25px
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #AD40AF;
+}.btn-group{
+    width: 98%;
+    left: 1%;
+    height:70px;
+    border-radius: 10px;
+    border: 2px solid #AD40AF;
+
+}
+</style>
