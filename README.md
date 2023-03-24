@@ -38,7 +38,8 @@
    >  $firestore_key, $project_id variables needs to be filled slotbooking/index.php
    > Serve it using any localhost sever e.g XAMPP, WAMPP or VSCODE extension called PHP SERVER
  
-
+## Steps to configure Firebase Firestore to the react application.
+Create a .env file in the main directory and fill it with the credentials provided by Google
 ## Steps to stimulate the react native application using android/iOS/web stimulators
 
     npm run ios
